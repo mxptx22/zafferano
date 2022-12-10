@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  header {
+    @apply mt-8 flex justify-between items-center;
+  }
+
+  h1 {
+    @apply text-5xl font-semibold;
+  }
+}
+
+@layer components {
+  @keyframes fadein {
+    from {
+      opacity: 0%;
+    }
+
+    to {
+      opacity: 100%;
+    }
+  }
+
+  .animation-fadein {
+    animation-name: fadein;
+    animation-duration: 0.5s;
+  }
+
+  @keyframes slidein {
+    from {
+      margin-top: 100%;
+    }
+
+    to {
+      margin-top: 0%;
+    }
+  }
+
+  .animation-slidein {
+    animation-duration: 0.5s;
+    animation-name: slidein;
+  }
+}
