@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  nav {
+    @apply mb-8;
+  }
   header {
-    @apply mt-8 flex justify-between items-center;
+    @apply mb-6 flex justify-between items-center;
   }
 
   h1 {
