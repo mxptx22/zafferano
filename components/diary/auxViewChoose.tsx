@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
+import { ISelectionRecipe } from "../../models/recipe";
 
 // HERE Go types
 type IOutput = {
@@ -17,7 +18,9 @@ type IOutput = {
 type Props = {
   auxWindowClose: Function;
   setWindowState: React.Dispatch<React.SetStateAction<IWindowStateOne>>;
-  setSelectionRecipe: React.Dispatch<React.SetStateAction<object>>;
+  setSelectionRecipe: React.Dispatch<
+    React.SetStateAction<Partial<ISelectionRecipe> | undefined>
+  >;
   searchInput: string;
 };
 
@@ -123,7 +126,7 @@ const AuxViewChoose: FunctionComponent<Props> = ({
     <>
       <DisruptiveCard>
         <>
-          <div className="flex flex-col h-full w-full justify-between">
+          <div className="flex flex-col h-full w-full justify-between p-12">
             <header className="h-fit">
               <h1>Choose</h1>
               <div id="container-button" className="flex gap-2">
@@ -159,7 +162,7 @@ const AuxViewChoose: FunctionComponent<Props> = ({
                 </button>
               </div>
             </header>
-            <div className="grid grid-cols-3 items-stretch w-full flex-wrap h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-4">
+            <div className="grid grid-cols-3 items-stretch w-full h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-4">
               {handleRender}
             </div>
           </div>

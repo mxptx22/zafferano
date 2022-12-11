@@ -1,5 +1,58 @@
 import { Schema, model, models } from "mongoose";
 
+export interface ISendableRecipe {
+  idExt: ISelectionRecipe["idMeal"] | undefined;
+  name: ISelectionRecipe["strMeal"] | undefined;
+  area: ISelectionRecipe["strArea"] | undefined;
+  category: ISelectionRecipe["strCategory"] | undefined;
+  image: ISelectionRecipe["strMealThumb"] | undefined;
+  instructions: ISelectionRecipe["strInstructions"] | undefined;
+  ingredients: [
+    ISelectionRecipe["strIngredient1"] | undefined,
+    ISelectionRecipe["strIngredient2"] | undefined,
+    ISelectionRecipe["strIngredient3"] | undefined,
+    ISelectionRecipe["strIngredient4"] | undefined,
+    ISelectionRecipe["strIngredient5"] | undefined,
+    ISelectionRecipe["strIngredient6"] | undefined,
+    ISelectionRecipe["strIngredient7"] | undefined,
+    ISelectionRecipe["strIngredient8"] | undefined,
+    ISelectionRecipe["strIngredient9"] | undefined,
+    ISelectionRecipe["strIngredient10"] | undefined,
+    ISelectionRecipe["strIngredient11"] | undefined,
+    ISelectionRecipe["strIngredient12"] | undefined,
+    ISelectionRecipe["strIngredient13"] | undefined,
+    ISelectionRecipe["strIngredient14"] | undefined,
+    ISelectionRecipe["strIngredient15"] | undefined,
+    ISelectionRecipe["strIngredient16"] | undefined,
+    ISelectionRecipe["strIngredient17"] | undefined,
+    ISelectionRecipe["strIngredient18"] | undefined,
+    ISelectionRecipe["strIngredient19"] | undefined,
+    ISelectionRecipe["strIngredient20"] | undefined
+  ];
+  measures: [
+    ISelectionRecipe["strMeasure1"] | undefined,
+    ISelectionRecipe["strMeasure2"] | undefined,
+    ISelectionRecipe["strMeasure3"] | undefined,
+    ISelectionRecipe["strMeasure4"] | undefined,
+    ISelectionRecipe["strMeasure5"] | undefined,
+    ISelectionRecipe["strMeasure6"] | undefined,
+    ISelectionRecipe["strMeasure7"] | undefined,
+    ISelectionRecipe["strMeasure8"] | undefined,
+    ISelectionRecipe["strMeasure9"] | undefined,
+    ISelectionRecipe["strMeasure10"] | undefined,
+    ISelectionRecipe["strMeasure11"] | undefined,
+    ISelectionRecipe["strMeasure12"] | undefined,
+    ISelectionRecipe["strMeasure13"] | undefined,
+    ISelectionRecipe["strMeasure14"] | undefined,
+    ISelectionRecipe["strMeasure15"] | undefined,
+    ISelectionRecipe["strMeasure16"] | undefined,
+    ISelectionRecipe["strMeasure17"] | undefined,
+    ISelectionRecipe["strMeasure18"] | undefined,
+    ISelectionRecipe["strMeasure19"] | undefined,
+    ISelectionRecipe["strMeasure20"] | undefined
+  ];
+}
+
 export interface ISelectionRecipe {
   dateModified?: any;
   idMeal: string;

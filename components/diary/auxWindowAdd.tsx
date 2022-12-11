@@ -6,6 +6,7 @@ import { IWindowStateOne } from "../../pages/index";
 import AuxViewSearch from "./auxViewSearch";
 import AuxViewChoose from "./auxViewChoose";
 import AuxViewConfirm from "./auxViewConfirm";
+import { ISelectionRecipe } from "../../models/recipe";
 
 // HERE go types
 interface Props {
@@ -20,7 +21,8 @@ const AuxWindowAdd: FunctionComponent<Props> = ({
 }) => {
   // HERE go auxiliary functions
   const [searchInput, setSearchInput] = useState<string>("");
-  const [selectionRecipe, setSelectionRecipe] = useState<object>();
+  const [selectionRecipe, setSelectionRecipe] =
+    useState<Partial<ISelectionRecipe>>();
   const auxWindowClose = () => {
     // MEMO This function you will pass further to keep it in one place - like search input erasure
     setWindowState({ auxWindow: false, auxDisplayStep: "Search" });

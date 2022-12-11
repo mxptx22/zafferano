@@ -26,7 +26,7 @@ export function DisruptiveLayout(props: { children: JSX.Element }) {
 export function DisruptiveCard(props: { children: JSX.Element }) {
   return (
     <>
-      <div className="animation-slidein w-5/6 h-5/6 bg-base-100 shadow-2xl rounded-xl p-12">
+      <div className="animation-slidein w-5/6 h-5/6 bg-base-100 shadow-2xl rounded-xl">
         {props.children}
       </div>
     </>
