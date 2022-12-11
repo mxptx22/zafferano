@@ -8,6 +8,7 @@ import React, {
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 
+// HERE Go types
 type IOutput = {
   success: boolean;
   data?: any;
@@ -16,7 +17,7 @@ type IOutput = {
 type Props = {
   auxWindowClose: Function;
   setWindowState: React.Dispatch<React.SetStateAction<IWindowStateOne>>;
-  setSearchInput: Function;
+  setSelectionRecipe: React.Dispatch<React.SetStateAction<object>>;
   searchInput: string;
 };
 
@@ -24,8 +25,9 @@ const AuxViewChoose: FunctionComponent<Props> = ({
   auxWindowClose,
   setWindowState,
   searchInput,
+  setSelectionRecipe,
 }) => {
-  // Here go auxiliary functions
+  // HERE Go auxiliary functions
 
   type IFetchStatus = "Successful" | "Erroneous" | "Vacuous" | "Awaiting";
   type IFetchData = Array<any>;
@@ -40,8 +42,7 @@ const AuxViewChoose: FunctionComponent<Props> = ({
   };
 
   const handleProgression = () => {
-    searchInput.length > 0 &&
-      setWindowState({ auxDisplayStep: "Confirm", auxWindow: true });
+    setWindowState({ auxDisplayStep: "Confirm", auxWindow: true });
   };
 
   const handleFetch = async () => {
@@ -76,11 +77,12 @@ const AuxViewChoose: FunctionComponent<Props> = ({
   };
 
   const handleRender = useMemo(() => {
+    // FIXME we're not quite there yet but perhaps putting useEffect in auxWindowAdd might help with performance - fiddle with useEffect
     if (fetchData.length == 0) {
       return;
     } else if (fetchData.length > 0) {
-      return fetchData.map((item) => (
-        <div className="card h-80 bg-base-100 shadow-2xl">
+      return fetchData.map((item, index) => (
+        <div className="card h-80 bg-base-100 shadow-xl">
           <figure className="w-full h-1/3">
             <img src={item.strMealThumb} alt={`Image of ${item.strMeal}`} />
           </figure>
@@ -90,7 +92,13 @@ const AuxViewChoose: FunctionComponent<Props> = ({
               {item.strArea} - {item.strCategory}
             </p>
             <div className="card-actions justify-end">
-              <button className="btn btn-primary">Choose</button>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  handleSelection(index);
+                }}>
+                Choose
+              </button>
             </div>
           </div>
         </div>
@@ -100,10 +108,17 @@ const AuxViewChoose: FunctionComponent<Props> = ({
     }
   }, [fetchData]);
 
+  const handleSelection = (key: number) => {
+    console.log(fetchData[key]);
+    setSelectionRecipe(fetchData[key]);
+    handleProgression();
+  };
+
   useEffect(() => {
     handleFetch();
   }, [searchInput]);
 
+  // HERE Goes the layout
   return (
     <>
       <DisruptiveCard>
@@ -144,7 +159,7 @@ const AuxViewChoose: FunctionComponent<Props> = ({
                 </button>
               </div>
             </header>
-            <div className="grid grid-cols-3 items-stretch w-full flex-wrap h-full overflow-scroll gap-4 justify-between -mb-12">
+            <div className="grid grid-cols-3 items-stretch w-full flex-wrap h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-4">
               {handleRender}
             </div>
           </div>
