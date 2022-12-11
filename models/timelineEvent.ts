@@ -1,32 +1,36 @@
 import { Schema, model, models } from "mongoose";
+import { ISendableRecipe } from "./recipe";
 
-export interface ITimelineEvent {
-  name: String;
-  image: String;
-  ingredients: Array<String>;
-  instructions: String;
+export interface ISendableDate {
   dateUTC: Date;
-  date: {
-    day: Number;
-    month: Number;
+  dateFull: {
     year: Number;
+    month: Number;
+    day: Number;
   };
 }
 
-const timelineEventSchema = new Schema({
+export interface ISendableEvent extends ISendableRecipe, ISendableDate {}
+
+const timelineEventSchema = new Schema<ISendableEvent>({
+  idExt: String,
   name: String,
+  area: String,
+  category: String,
   image: String,
-  ingredients: Array,
   instructions: String,
+  ingredients: Array,
+  measures: Array,
   dateUTC: Date,
-  date: {
-    day: Number,
-    month: Number,
+  dateFull: {
     year: Number,
+    month: Number,
+    day: Number,
   },
 });
 
 const timelineEvent =
-  models.TimelineEvent || model("TimelineEvent", timelineEventSchema);
+  models.TimelineEvent ||
+  model<ISendableEvent>("TimelineEvent", timelineEventSchema);
 
 export default timelineEvent;

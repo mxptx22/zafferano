@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import dbConnect from "../../../dbConnect";
+import timelineEvent from "../../../models/timelineEvent";
 
 type resData = {
   success: boolean;
-  data?: any;
 };
 
 export default async function handler(
@@ -14,13 +15,16 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        const input = req.body.input;
-        const response = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`
-        );
-        const data = await response.json();
+        console.log("CONNECTING TO MONGO");
+        await dbConnect();
+        console.log("CONNECTED TO MONGO");
 
-        res.status(200).json({ success: true, data: data });
+        console.log("CREATING DOCUMENT");
+        console.log(req.body);
+        await timelineEvent.create(req.body);
+        console.log("CREATED DOCUMENT");
+
+        res.status(200).json({ success: true });
       } catch (error) {
         console.log(error);
         res.status(400).json({ success: false });

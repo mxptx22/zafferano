@@ -7,6 +7,11 @@ import React, {
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 import { ISelectionRecipe, ISendableRecipe } from "../../models/recipe";
+import { ISendableEvent } from "../../models/timelineEvent";
+
+import { format } from "date-fns";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 // HERE Go types
 
@@ -26,6 +31,16 @@ const AuxViewConfirm: FunctionComponent<Props> = ({
   selectionRecipe,
 }) => {
   // HERE Go auxiliary functions
+
+  const [selectionDate, setSelectionDate] = useState<Date>();
+  const handleDayClick = (day: Date) => {
+    setSelectionDate(day);
+  };
+
+  const customDatepickerStyles = {
+    caption: { color: "hsl(var(--p))" },
+    selected: { backgroundColor: "hsl(var(--p))" },
+  };
 
   const [sendableRecipe, setSendableRecipe] =
     useState<Required<ISendableRecipe>>();
@@ -91,12 +106,65 @@ const AuxViewConfirm: FunctionComponent<Props> = ({
     };
   }, [selectionRecipe]);
 
+  const handleSubmission = async (selectedDate: Date) => {
+    try {
+      if (sendableRecipe !== undefined && selectedDate) {
+        const payload: ISendableEvent = {
+          area: sendableRecipe.area,
+          category: sendableRecipe.category,
+          idExt: sendableRecipe.idExt,
+          image: sendableRecipe.image,
+          name: sendableRecipe.name,
+          instructions: sendableRecipe.instructions,
+          ingredients: sendableRecipe.ingredients,
+          measures: sendableRecipe.measures,
+          dateUTC: selectedDate,
+          dateFull: {
+            day: selectedDate.getDate(),
+            month: selectedDate.getMonth() + 1,
+            year: selectedDate.getFullYear(),
+          },
+        };
+
+        // FIXME It's late but think how not to refresh upon error like you're clearly missing some easy nuance (handleProgression starts despite error)
+        await fetch("/api/timelineEvents/manage", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then(() => handleProgression())
+          .catch((err) => {
+            throw new Error("Submission error: Connection to server failed.");
+          });
+      } else {
+        throw new Error(
+          "Parameter(s) missing: Either no date has been selected or recipe selection hasn't been properly recorded."
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleProgression = () => {
     auxWindowClose();
+    location.reload();
   };
 
   const handleRegression = () => {
     setWindowState({ auxDisplayStep: "Choose", auxWindow: true });
+  };
+
+  const orderSubmissionToday = async () => {
+    let today = new Date();
+    await handleSubmission(today);
+  };
+
+  const orderSubmissionDated = async () => {
+    await handleSubmission(selectionDate!);
   };
 
   // HERE Goes the layout
@@ -112,7 +180,7 @@ const AuxViewConfirm: FunctionComponent<Props> = ({
                 alt={`Image of ${sendableRecipe?.name}`}
               />
               <div
-                id="container-button"
+                id="container-button-navigation"
                 className="absolute top-12 right-12 flex gap-2">
                 <button
                   id="button-return"
@@ -148,15 +216,84 @@ const AuxViewConfirm: FunctionComponent<Props> = ({
               <div className="ml-12 w-fit h-fit text-xl relative top-[75%]">
                 <div className="bg-base-100 blur-lg shadow-xl h-full w-full absolute"></div>
                 <div className="text-7xl font-bold relative h-fit max-h-24 w-full overflow-hidden">
-                  {/* FIXME Spaghetti cuts g down when overflow hidden */}
+                  {/* FIXME Spaghetti cuts g (ligature or whatever it's called) down when overflow hidden */}
                   {sendableRecipe?.name}
                 </div>
               </div>
             </div>
-            <div className="w-full h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-12 ">
+            <div className="w-full h-full overflow-scroll gap-4 justify-between pb-8 px-12 ">
               <div className="w-full flex gap-4">
-                <div className="w-2/3 ">Hel</div>
-                <div className="w-1/3">Lo</div>
+                <div className="w-2/3 ">
+                  <h2 className="h2-underline">🛒 You will need...</h2>
+                  <div className="grid grid-cols-2">
+                    {sendableRecipe?.ingredients
+                      .filter((iy) => iy !== "")
+                      .map((iz, index) => (
+                        <li>
+                          <div>
+                            <span className="font-medium">{iz}</span> -{" "}
+                            {sendableRecipe?.measures?.[index]}
+                          </div>
+                        </li>
+                      ))}
+                  </div>
+                  <h2 className="h2-underline">📜 About this recipe...</h2>
+                  <div>
+                    {sendableRecipe?.area && sendableRecipe?.category
+                      ? `This is a ${sendableRecipe.category} recipe typically associated with ${sendableRecipe.area} cuisine.`
+                      : "We're not really too sure about this one."}
+                  </div>
+                  <h2 className="h2-underline">🧑🏼‍🍳 How it's made...</h2>
+                  <div className="whitespace-pre-wrap leading-relaxed text-justify">
+                    {sendableRecipe?.instructions?.replace(
+                      /(\r\n|\n|\r)/gm,
+                      "\n"
+                    )}
+                  </div>
+                </div>
+                <div className="w-1/3 flex justify-start items-end flex-col">
+                  <div
+                    id="container-button-addition"
+                    className="w-full h-12 flex justify-end gap-2 items-stretch">
+                    <button
+                      className="w-min btn btn-primary"
+                      onClick={() => {
+                        orderSubmissionToday();
+                      }}>
+                      Add Today
+                    </button>
+                    <button
+                      onClick={
+                        selectionDate
+                          ? () => {
+                              orderSubmissionDated();
+                            }
+                          : undefined
+                      }
+                      className={`w-fit min-w-[112px] btn ${
+                        selectionDate ? "btn-primary" : "btn-disabled"
+                      }`}>
+                      Add <br />
+                      {selectionDate
+                        ? selectionDate?.toLocaleDateString()
+                        : "When?"}
+                    </button>
+                  </div>
+
+                  <div></div>
+
+                  <DayPicker
+                    mode="single"
+                    fromYear={2010}
+                    toYear={2030}
+                    captionLayout="dropdown"
+                    showOutsideDays
+                    selected={selectionDate}
+                    onDayClick={handleDayClick}
+                    styles={customDatepickerStyles}
+                    modifiersStyles={customDatepickerStyles}
+                  />
+                </div>
               </div>
             </div>
           </div>

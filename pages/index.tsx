@@ -3,6 +3,7 @@ import { Layout } from "../components/essentials/layout";
 import AuxWindowAdd from "../components/diary/auxWindowAdd";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { ISendableEvent } from "../models/timelineEvent";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -13,9 +14,10 @@ export interface IWindowStateOne {
 
 interface IFetchedSSProps {
   successScreen: "Successful" | "Erroneous" | "Vacuous";
-  data?: Array<any>;
+  data?: Array<ISendableEvent>;
 }
 
+// FIXME Somehow I can't try-catch it
 export const getServerSideProps: GetServerSideProps<
   IFetchedSSProps
 > = async () => {

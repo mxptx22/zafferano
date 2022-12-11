@@ -73,8 +73,12 @@ const AuxViewChoose: FunctionComponent<Props> = ({
         }
       } else {
         setFetchStatus("Erroneous");
+        throw new Error(
+          "Fetch error: We got a response from the server but the it failed to connect to the external source."
+        );
       }
     } catch (err) {
+      console.log(err);
       setFetchStatus("Erroneous");
     }
   };

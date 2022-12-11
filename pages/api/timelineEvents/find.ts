@@ -1,10 +1,10 @@
 import dbConnect from "../../../dbConnect";
-import timelineEvent, { ITimelineEvent } from "../../../models/timelineEvent";
+import timelineEvent, { ISendableEvent } from "../../../models/timelineEvent";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type resData = {
   success: boolean;
-  data?: Array<ITimelineEvent>;
+  data?: Array<ISendableEvent>;
 };
 
 export default async function handler(
