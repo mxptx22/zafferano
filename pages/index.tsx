@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Layout } from "../components/essentials/layout";
 import AuxWindowAdd from "../components/diary/auxWindowAdd";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ISendableEvent } from "../models/timelineEvent";
+import TimelineGrid from "../components/diary/TimelineGrid";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
+// HERE Go Types
 export interface IWindowStateOne {
   auxWindow: boolean;
   auxDisplayStep: "Search" | "Choose" | "Confirm";
@@ -15,7 +17,18 @@ export interface IWindowStateOne {
 interface IFetchedSSProps {
   successScreen: "Successful" | "Erroneous" | "Vacuous";
   data?: Array<ISendableEvent>;
+  distinctYears?: Array<any>;
+  distinctMonths?: Array<any>;
 }
+
+// HERE Go additional screens
+export const ErroneousScreen = () => {
+  return <div>Some Error Occurred</div>;
+};
+
+export const VacuousScreen = () => {
+  return <div>There's Nothing Here! Add First Entry!</div>;
+};
 
 // FIXME Somehow I can't try-catch it
 export const getServerSideProps: GetServerSideProps<
@@ -33,7 +46,12 @@ export const getServerSideProps: GetServerSideProps<
   if (allTimelineEvents.success == true) {
     if (allTimelineEvents.data.length > 0) {
       return {
-        props: { successScreen: "Successful", data: allTimelineEvents.data },
+        props: {
+          successScreen: "Successful",
+          data: allTimelineEvents.data,
+          distinctMonths: allTimelineEvents.distinctMonths,
+          distinctYears: allTimelineEvents.distinctYears,
+        },
       };
     } else {
       return {
@@ -49,7 +67,12 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const Home = () => {
+const Home: FunctionComponent<IFetchedSSProps> = ({
+  successScreen,
+  data,
+  distinctMonths,
+  distinctYears,
+}) => {
   const [windowState, setWindowState] = useState<IWindowStateOne>({
     auxWindow: false,
     auxDisplayStep: "Search",
@@ -62,6 +85,13 @@ const Home = () => {
   const auxWindowOpen = () => {
     setWindowState({ auxWindow: true, auxDisplayStep: "Search" });
   };
+
+  // MEMO Delete afterwards
+  useEffect(() => {
+    console.log(data);
+    console.log(distinctMonths);
+    console.log(distinctYears);
+  }, []);
 
   return (
     <>
@@ -81,14 +111,21 @@ const Home = () => {
         />
       )}
       <Layout>
-        <header>
-          <h1>Your Diary</h1>
-          <button
-            className="btn btn-primary text-xl"
-            onClick={() => auxWindowOpen()}>
-            Add Entry
-          </button>
-        </header>
+        <>
+          <header>
+            <h1>Your Diary</h1>
+            <button
+              className="btn btn-primary text-xl"
+              onClick={() => auxWindowOpen()}>
+              Add Entry
+            </button>
+          </header>
+          {successScreen == "Erroneous" && <ErroneousScreen />}
+          {successScreen == "Vacuous" && <VacuousScreen />}
+          {successScreen == "Successful" && data && (
+            <TimelineGrid data={data} />
+          )}
+        </>
       </Layout>
     </>
   );
