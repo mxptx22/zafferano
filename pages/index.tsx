@@ -123,9 +123,27 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
           </header>
           {successScreen == "Erroneous" && <ErroneousScreen />}
           {successScreen == "Vacuous" && <VacuousScreen />}
-          {successScreen == "Successful" && data && (
-            <TimelineGrid data={data} />
-          )}
+          {
+            successScreen == "Successful" &&
+              data &&
+              // console.log(
+              distinctYears?.map((u) => {
+                return distinctDates
+                  ?.filter((w) => w.year == u)
+                  .map((x) => x.month)
+                  .map((y) => {
+                    return data
+                      .filter(
+                        (z) => z.dateFull.month == y && z.dateFull.year == u
+                      )
+                      .map((bottom: any) => {
+                        // idk and here you'll have error unless you remove [0] - good night
+                        return <div>{bottom[0].toString()}</div>;
+                      });
+                  });
+              })
+            // )
+          }
         </>
       </Layout>
     </>
