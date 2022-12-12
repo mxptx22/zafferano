@@ -19,6 +19,7 @@ interface IFetchedSSProps {
   data?: Array<ISendableEvent>;
   distinctYears?: Array<any>;
   distinctMonths?: Array<any>;
+  distinctDates?: Array<any>;
 }
 
 // HERE Go additional screens
@@ -51,6 +52,7 @@ export const getServerSideProps: GetServerSideProps<
           data: allTimelineEvents.data,
           distinctMonths: allTimelineEvents.distinctMonths,
           distinctYears: allTimelineEvents.distinctYears,
+          distinctDates: allTimelineEvents.distinctDates,
         },
       };
     } else {
@@ -72,6 +74,7 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
   data,
   distinctMonths,
   distinctYears,
+  distinctDates,
 }) => {
   const [windowState, setWindowState] = useState<IWindowStateOne>({
     auxWindow: false,
@@ -86,11 +89,9 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
     setWindowState({ auxWindow: true, auxDisplayStep: "Search" });
   };
 
-  // MEMO Delete afterwards
+  // MEMO Delete afterwards - or maybe don't if you set distinct pairs with lodash
   useEffect(() => {
-    console.log(data);
-    console.log(distinctMonths);
-    console.log(distinctYears);
+    console.log(distinctDates);
   }, []);
 
   return (
