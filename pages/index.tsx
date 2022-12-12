@@ -1,4 +1,12 @@
-import { FunctionComponent, useEffect, useState } from "react";
+import {
+  FunctionComponent,
+  JSXElementConstructor,
+  ReactComponentElement,
+  ReactElement,
+  ReactFragment,
+  useEffect,
+  useState,
+} from "react";
 import { Layout } from "../components/essentials/layout";
 import AuxWindowAdd from "../components/diary/auxWindowAdd";
 import { GetServerSideProps } from "next";
@@ -22,6 +30,28 @@ interface IFetchedSSProps {
   distinctDates?: Array<any>;
 }
 
+type ISuccessfulScreenMatchingDates = {
+  month: number;
+  year: number;
+};
+
+type ISuccessfulScreenProps = {
+  thisYear: number;
+  data: Array<ISendableEvent>;
+  thoseMonths: Array<any>;
+};
+
+type ISuccessfulScreenGridProps = {
+  children: ReactElement<any>;
+};
+
+type ISuccessfulScreenGridCardProps = {
+  name: Required<ISendableEvent["name"]>;
+  image: Required<ISendableEvent["image"]>;
+  dateUTC: Required<ISendableEvent["dateUTC"]>;
+  mongoID: Required<ISendableEvent["_id"]>;
+};
+
 // HERE Go additional screens
 export const ErroneousScreen = () => {
   return <div>Some Error Occurred</div>;
@@ -31,6 +61,81 @@ export const VacuousScreen = () => {
   return <div>There's Nothing Here! Add First Entry!</div>;
 };
 
+export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
+  thisYear,
+  thoseMonths,
+  data,
+}) => {
+  // HERE Words speak louder
+  const monthsWords = [
+    null,
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  return (
+    <>
+      {thoseMonths.map((thisMonth: number) => {
+        return (
+          <>
+            <h2 className="my-2">{monthsWords[thisMonth]}</h2>
+            <SuccessfulScreenGrid>
+              <>
+                {data
+                  .filter(
+                    (z) =>
+                      z.dateFull.year == thisYear &&
+                      z.dateFull.month == thisMonth
+                  )
+                  .map((item) => {
+                    return (
+                      <SuccessfulScreenGridCard
+                        name={item.name}
+                        image={item.image}
+                        dateUTC={item.dateUTC}
+                        mongoID={item._id}
+                      />
+                    );
+                  })}
+              </>
+            </SuccessfulScreenGrid>
+          </>
+        );
+      })}
+    </>
+  );
+};
+
+export const SuccessfulScreenGrid: FunctionComponent<
+  ISuccessfulScreenGridProps
+> = ({ children }) => {
+  return <div className="w-full grid grid-cols-4 gap-4">{children}</div>;
+};
+
+export const SuccessfulScreenGridCard: FunctionComponent<
+  ISuccessfulScreenGridCardProps
+> = ({ name, image, dateUTC, mongoID }) => {
+  return (
+    <div className="my-2">
+      <div>{name}</div>
+      <div>{image}</div>
+      <div>{mongoID}</div>
+      <div>{dateUTC.toString()}</div>
+    </div>
+  );
+};
+
+// HERE You fetch props from the serva
 // FIXME Somehow I can't try-catch it
 export const getServerSideProps: GetServerSideProps<
   IFetchedSSProps
@@ -91,7 +196,7 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
 
   // MEMO Delete afterwards - or maybe don't if you set distinct pairs with lodash
   useEffect(() => {
-    console.log(distinctDates);
+    console.log(data);
   }, []);
 
   return (
@@ -123,27 +228,24 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
           </header>
           {successScreen == "Erroneous" && <ErroneousScreen />}
           {successScreen == "Vacuous" && <VacuousScreen />}
-          {
-            successScreen == "Successful" &&
-              data &&
-              // console.log(
-              distinctYears?.map((u) => {
-                return distinctDates
-                  ?.filter((w) => w.year == u)
-                  .map((x) => x.month)
-                  .map((y) => {
-                    return data
-                      .filter(
-                        (z) => z.dateFull.month == y && z.dateFull.year == u
-                      )
-                      .map((bottom: any) => {
-                        // idk and here you'll have error unless you remove [0] - good night
-                        return <div>{bottom[0].toString()}</div>;
-                      });
-                  });
-              })
-            // )
-          }
+          {successScreen == "Successful" &&
+            data &&
+            distinctYears &&
+            distinctDates &&
+            distinctYears.map((thisYear: number) => {
+              return (
+                <>
+                  <h1 className="my-4">{thisYear}</h1>
+                  <SuccessfulScreen
+                    thisYear={thisYear}
+                    thoseMonths={distinctDates
+                      .filter((v) => v.year == thisYear)
+                      .map((w) => w.month)}
+                    data={data.filter((x) => x.dateFull.year == thisYear)}
+                  />
+                </>
+              );
+            })}
         </>
       </Layout>
     </>

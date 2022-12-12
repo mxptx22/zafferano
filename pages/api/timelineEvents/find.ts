@@ -42,7 +42,7 @@ export default async function handler(
           success: true,
           data: timelineevents,
           distinctMonths: distinctMonths,
-          distinctYears: distinctYears,
+          distinctYears: distinctYears.reverse(),
           distinctDates: distinctDates,
         });
       } catch (error) {

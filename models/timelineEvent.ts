@@ -10,7 +10,14 @@ export interface ISendableDate {
   };
 }
 
-export interface ISendableEvent extends ISendableRecipe, ISendableDate {}
+export interface ISendableEventAux {
+  _id?: String;
+}
+
+export interface ISendableEvent
+  extends ISendableRecipe,
+    ISendableDate,
+    ISendableEventAux {}
 
 const timelineEventSchema = new Schema<ISendableEvent>({
   idExt: String,
