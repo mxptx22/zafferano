@@ -1,55 +1,55 @@
 import { Schema, model, models } from "mongoose";
 
 export interface ISendableRecipe {
-  idExt: ISelectionRecipe["idMeal"] | undefined;
-  name: ISelectionRecipe["strMeal"] | undefined;
-  area: ISelectionRecipe["strArea"] | undefined;
-  category: ISelectionRecipe["strCategory"] | undefined;
-  image: ISelectionRecipe["strMealThumb"] | undefined;
-  instructions: ISelectionRecipe["strInstructions"] | undefined;
+  idExt: ISelectionRecipe["idMeal"];
+  name: ISelectionRecipe["strMeal"];
+  area: ISelectionRecipe["strArea"];
+  category: ISelectionRecipe["strCategory"];
+  image: ISelectionRecipe["strMealThumb"];
+  instructions: ISelectionRecipe["strInstructions"];
   ingredients: [
-    ISelectionRecipe["strIngredient1"] | undefined,
-    ISelectionRecipe["strIngredient2"] | undefined,
-    ISelectionRecipe["strIngredient3"] | undefined,
-    ISelectionRecipe["strIngredient4"] | undefined,
-    ISelectionRecipe["strIngredient5"] | undefined,
-    ISelectionRecipe["strIngredient6"] | undefined,
-    ISelectionRecipe["strIngredient7"] | undefined,
-    ISelectionRecipe["strIngredient8"] | undefined,
-    ISelectionRecipe["strIngredient9"] | undefined,
-    ISelectionRecipe["strIngredient10"] | undefined,
-    ISelectionRecipe["strIngredient11"] | undefined,
-    ISelectionRecipe["strIngredient12"] | undefined,
-    ISelectionRecipe["strIngredient13"] | undefined,
-    ISelectionRecipe["strIngredient14"] | undefined,
-    ISelectionRecipe["strIngredient15"] | undefined,
-    ISelectionRecipe["strIngredient16"] | undefined,
-    ISelectionRecipe["strIngredient17"] | undefined,
-    ISelectionRecipe["strIngredient18"] | undefined,
-    ISelectionRecipe["strIngredient19"] | undefined,
-    ISelectionRecipe["strIngredient20"] | undefined
+    ISelectionRecipe["strIngredient1"],
+    ISelectionRecipe["strIngredient2"],
+    ISelectionRecipe["strIngredient3"],
+    ISelectionRecipe["strIngredient4"],
+    ISelectionRecipe["strIngredient5"],
+    ISelectionRecipe["strIngredient6"],
+    ISelectionRecipe["strIngredient7"],
+    ISelectionRecipe["strIngredient8"],
+    ISelectionRecipe["strIngredient9"],
+    ISelectionRecipe["strIngredient10"],
+    ISelectionRecipe["strIngredient11"],
+    ISelectionRecipe["strIngredient12"],
+    ISelectionRecipe["strIngredient13"],
+    ISelectionRecipe["strIngredient14"],
+    ISelectionRecipe["strIngredient15"],
+    ISelectionRecipe["strIngredient16"],
+    ISelectionRecipe["strIngredient17"],
+    ISelectionRecipe["strIngredient18"],
+    ISelectionRecipe["strIngredient19"],
+    ISelectionRecipe["strIngredient20"]
   ];
   measures: [
-    ISelectionRecipe["strMeasure1"] | undefined,
-    ISelectionRecipe["strMeasure2"] | undefined,
-    ISelectionRecipe["strMeasure3"] | undefined,
-    ISelectionRecipe["strMeasure4"] | undefined,
-    ISelectionRecipe["strMeasure5"] | undefined,
-    ISelectionRecipe["strMeasure6"] | undefined,
-    ISelectionRecipe["strMeasure7"] | undefined,
-    ISelectionRecipe["strMeasure8"] | undefined,
-    ISelectionRecipe["strMeasure9"] | undefined,
-    ISelectionRecipe["strMeasure10"] | undefined,
-    ISelectionRecipe["strMeasure11"] | undefined,
-    ISelectionRecipe["strMeasure12"] | undefined,
-    ISelectionRecipe["strMeasure13"] | undefined,
-    ISelectionRecipe["strMeasure14"] | undefined,
-    ISelectionRecipe["strMeasure15"] | undefined,
-    ISelectionRecipe["strMeasure16"] | undefined,
-    ISelectionRecipe["strMeasure17"] | undefined,
-    ISelectionRecipe["strMeasure18"] | undefined,
-    ISelectionRecipe["strMeasure19"] | undefined,
-    ISelectionRecipe["strMeasure20"] | undefined
+    ISelectionRecipe["strMeasure1"],
+    ISelectionRecipe["strMeasure2"],
+    ISelectionRecipe["strMeasure3"],
+    ISelectionRecipe["strMeasure4"],
+    ISelectionRecipe["strMeasure5"],
+    ISelectionRecipe["strMeasure6"],
+    ISelectionRecipe["strMeasure7"],
+    ISelectionRecipe["strMeasure8"],
+    ISelectionRecipe["strMeasure9"],
+    ISelectionRecipe["strMeasure10"],
+    ISelectionRecipe["strMeasure11"],
+    ISelectionRecipe["strMeasure12"],
+    ISelectionRecipe["strMeasure13"],
+    ISelectionRecipe["strMeasure14"],
+    ISelectionRecipe["strMeasure15"],
+    ISelectionRecipe["strMeasure16"],
+    ISelectionRecipe["strMeasure17"],
+    ISelectionRecipe["strMeasure18"],
+    ISelectionRecipe["strMeasure19"],
+    ISelectionRecipe["strMeasure20"]
   ];
 }
 

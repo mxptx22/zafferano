@@ -1,6 +1,22 @@
 import { Schema, model, models } from "mongoose";
 import { ISendableRecipe } from "./recipe";
 
+export type IMonthsWords = [
+  null,
+  "January" | "Jan",
+  "February" | "Feb",
+  "March" | "Mar",
+  "April" | "Apr",
+  "May",
+  "June" | "Jun",
+  "July" | "Jul",
+  "August" | "Aug",
+  "September" | "Sep",
+  "October" | "Oct",
+  "November" | "Nov",
+  "December" | "Dec"
+];
+
 export interface ISendableDate {
   dateUTC: Date;
   dateFull: {

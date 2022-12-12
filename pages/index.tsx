@@ -13,6 +13,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ISendableEvent } from "../models/timelineEvent";
 import TimelineGrid from "../components/diary/TimelineGrid";
+import { IMonthsWords } from "../models/timelineEvent";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -25,9 +26,9 @@ export interface IWindowStateOne {
 interface IFetchedSSProps {
   successScreen: "Successful" | "Erroneous" | "Vacuous";
   data?: Array<ISendableEvent>;
-  distinctYears?: Array<any>;
-  distinctMonths?: Array<any>;
-  distinctDates?: Array<any>;
+  distinctYears?: Array<number>;
+  distinctMonths?: Array<number>;
+  distinctDates?: Array<ISuccessfulScreenMatchingDates>;
 }
 
 type ISuccessfulScreenMatchingDates = {
@@ -38,7 +39,7 @@ type ISuccessfulScreenMatchingDates = {
 type ISuccessfulScreenProps = {
   thisYear: number;
   data: Array<ISendableEvent>;
-  thoseMonths: Array<any>;
+  thoseMonths: number[];
 };
 
 type ISuccessfulScreenGridProps = {
@@ -49,7 +50,7 @@ type ISuccessfulScreenGridCardProps = {
   name: Required<ISendableEvent["name"]>;
   image: Required<ISendableEvent["image"]>;
   dateUTC: Required<ISendableEvent["dateUTC"]>;
-  mongoID: Required<ISendableEvent["_id"]>;
+  mongoID: Required<NonNullable<ISendableEvent["_id"]>>;
 };
 
 // HERE Go additional screens
@@ -67,7 +68,7 @@ export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
   data,
 }) => {
   // HERE Words speak louder
-  const monthsWords = [
+  const monthsWords: IMonthsWords = [
     null,
     "January",
     "February",
@@ -103,7 +104,7 @@ export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
                         name={item.name}
                         image={item.image}
                         dateUTC={item.dateUTC}
-                        mongoID={item._id}
+                        mongoID={item._id!}
                       />
                     );
                   })}
@@ -127,10 +128,19 @@ export const SuccessfulScreenGridCard: FunctionComponent<
 > = ({ name, image, dateUTC, mongoID }) => {
   return (
     <div className="my-2">
-      <div>{name}</div>
-      <div>{image}</div>
-      <div>{mongoID}</div>
-      <div>{dateUTC.toString()}</div>
+      <div className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
+        <figure className="relative h-full">
+          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-200 flex items-center justify-center">
+            <div className="text-3xl font-semibold">
+              {new Date(dateUTC).getDate()}
+            </div>
+          </div>
+          <img src={image} alt={`Image of ${name}`} />
+        </figure>
+        <div className="card-body h-36 overflow-hidden">
+          <h2 className="card-title">{name}</h2>
+        </div>
+      </div>
     </div>
   );
 };
@@ -155,7 +165,6 @@ export const getServerSideProps: GetServerSideProps<
         props: {
           successScreen: "Successful",
           data: allTimelineEvents.data,
-          distinctMonths: allTimelineEvents.distinctMonths,
           distinctYears: allTimelineEvents.distinctYears,
           distinctDates: allTimelineEvents.distinctDates,
         },
@@ -177,7 +186,6 @@ export const getServerSideProps: GetServerSideProps<
 const Home: FunctionComponent<IFetchedSSProps> = ({
   successScreen,
   data,
-  distinctMonths,
   distinctYears,
   distinctDates,
 }) => {

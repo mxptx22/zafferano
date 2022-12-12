@@ -6,9 +6,8 @@ import * as _ from "lodash";
 type resData = {
   success: boolean;
   data?: Array<ISendableEvent>;
-  distinctYears?: Array<any>;
-  distinctMonths?: Array<any>;
-  distinctDates?: Array<any>;
+  distinctYears?: Array<number>;
+  distinctDates?: Array<IDistinctMonthPairs>;
 };
 
 type IDistinctMonthPairs = {
@@ -29,10 +28,9 @@ export default async function handler(
       try {
         const timelineevents = await timelineEvent.find().sort("-dateUTC");
         const distinctYears = await timelineEvent.distinct("dateFull.year");
-        const distinctMonths = await timelineEvent.distinct("dateFull.month");
-        const AllDistinctDates = await timelineEvent.distinct("dateFull");
+        const distinctMonths = await timelineEvent.distinct("dateFull");
         const distinctDates = _.uniqBy(
-          AllDistinctDates,
+          distinctMonths,
           ({ year, month }) => year + ":" + month
         )
           .map(({ day, ...retain }) => retain)
@@ -41,7 +39,6 @@ export default async function handler(
         res.status(200).json({
           success: true,
           data: timelineevents,
-          distinctMonths: distinctMonths,
           distinctYears: distinctYears.reverse(),
           distinctDates: distinctDates,
         });

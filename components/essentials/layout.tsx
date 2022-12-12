@@ -7,7 +7,7 @@ export function Layout(props: { children: JSX.Element }) {
       <nav>
         <Navbar />
       </nav>
-      <div className="m-5">{props.children}</div>
+      <div className="m-5 px-4">{props.children}</div>
     </>
   );
 }
