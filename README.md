@@ -1,21 +1,3 @@
-<style>
-    h3 {
-        text-align: center;
-        margin-top:1.5rem;
-        padding-top:1.5rem;
-        margin-bottom:1.5rem;
-        padding-bottom:1.5rem;
-        border: 1px solid;
-
-    }
-
-    p {
-        text-align:justify;
-        margin-top:0.5rem;
-        margin-bottom:0.5rem;
-    }
-</style>
-
 <h1>Zafferano</h1>
 
 <h3>Zafferano is a diary for your recipes. Track your habits and get inspired.</h3>
