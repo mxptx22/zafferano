@@ -1,27 +1,44 @@
-# Next.js + Tailwind CSS Example
+<style>
+    h3 {
+        text-align: center;
+        margin-top:1.5rem;
+        padding-top:1.5rem;
+        margin-bottom:1.5rem;
+        padding-bottom:1.5rem;
+        border: 1px solid;
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+    }
 
-## Deploy your own
+    p {
+        text-align:justify;
+        margin-top:0.5rem;
+        margin-bottom:0.5rem;
+    }
+</style>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+<h1>Zafferano</h1>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+<h3>Zafferano is a diary for your recipes. Track your habits and get inspired.</h3>
 
-## How to use
+<h2>What is Zafferano (again)?</h2>
+<p>Zafferano allows you to explore new recipes and add them as entries for each day.  </p>
+<p>This is sort of like having a diary for your eating habits without any negative connotations coming with the term "eating habits".</p>
+<p>You learn what to buy, in what quantities, and how to prepare your favourite meals - no guilt-inducing tables and stats.</p>
+<p><b>This is just a concept for an application built in NextJS. It offers no login capabilities, and all dashboard entries appearing within the app are collected thanks to collective interest, in relative anonymity.</b></p> 
+ <p><b>In other words, the data you submit will be visible to others, though no specific personal data are collected here. It shouldn't be enough to make anyone 'identifiable'.</b></p>
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+<h2>What does Zafferano use?</h2>
+<ul>
+<li>TypeScript</li>
+<li>NextJS</li>
+<li>MongoDB</li>
+<!-- MEMO I can't remember but needs to be updated -->
+<li>An external API endpoint provided by [XXX]</li>
+</ul>
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
+<h2>What does Zafferano even mean?</h2>
+<p>It means <i>saffron</i> in Italian. Thought it sounded quite nice.</p>
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+<h2>What is the future of Zafferano?</h2>
+<p>Zafferano is a personal (pet) project specifically meant to implement Typescript and NextJS's full-stack architecture. </p>
+<p>It currently offers a diary module, though two other modules - 'Favourites' and 'Discovery' are in the works.</p>
