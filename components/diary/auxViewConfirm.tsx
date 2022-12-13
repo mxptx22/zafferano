@@ -186,7 +186,7 @@ const AuxViewConfirm: FunctionComponent<Props> = ({
           <>
             <div
               id="container-button-addition"
-              className="w-full h-12 flex justify-end gap-2 items-stretch">
+              className="w-fit h-12 flex self-end gap-2">
               <button
                 className="w-min btn btn-primary"
                 onClick={() => {
@@ -209,17 +209,19 @@ const AuxViewConfirm: FunctionComponent<Props> = ({
                 {selectionDate ? selectionDate?.toLocaleDateString() : "When?"}
               </button>
             </div>
-            <DayPicker
-              mode="single"
-              fromYear={2010}
-              toYear={2030}
-              captionLayout="dropdown"
-              showOutsideDays
-              selected={selectionDate}
-              onDayClick={handleDayClick}
-              styles={customDatepickerStyles}
-              modifiersStyles={customDatepickerStyles}
-            />
+            <div className="self-end">
+              <DayPicker
+                mode="single"
+                fromYear={2010}
+                toYear={2030}
+                captionLayout="dropdown"
+                showOutsideDays
+                selected={selectionDate}
+                onDayClick={handleDayClick}
+                styles={customDatepickerStyles}
+                modifiersStyles={customDatepickerStyles}
+              />
+            </div>
           </>
         </DisruptiveCardRecipe>
       </DisruptiveCard>

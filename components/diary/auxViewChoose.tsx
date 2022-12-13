@@ -2,6 +2,11 @@ import React, { FunctionComponent, useState, useEffect, useMemo } from "react";
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 import { ISelectionRecipe } from "../../models/recipe";
+import {
+  LoadingBumper,
+  ErrorBumper,
+  NOResultsBumper,
+} from "../essentials/bumpers";
 
 // HERE Go types
 type IOutput = {
@@ -10,7 +15,7 @@ type IOutput = {
 };
 
 type Props = {
-  auxWindowClose: Function;
+  auxWindowClose: () => void;
   setWindowState: React.Dispatch<React.SetStateAction<IWindowStateOne>>;
   setSelectionRecipe: React.Dispatch<
     React.SetStateAction<Partial<ISelectionRecipe> | undefined>
@@ -57,9 +62,9 @@ const AuxViewChoose: FunctionComponent<Props> = ({
       });
 
       output = await response.json();
-
+      console.log(output);
       if (output.success == true) {
-        if (output.data.meals.length > 0) {
+        if (output.data.meals) {
           setFetchStatus("Successful");
           setFetchData(output.data.meals);
         } else {
@@ -160,9 +165,23 @@ const AuxViewChoose: FunctionComponent<Props> = ({
                 </button>
               </div>
             </header>
-            <div className="grid grid-cols-3 items-stretch w-full h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-4">
-              {handleRender}
-            </div>
+
+            {fetchStatus == "Successful" && (
+              <>
+                <div className="grid grid-cols-3 items-stretch w-full h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-4">
+                  {handleRender}
+                </div>
+              </>
+            )}
+            {fetchStatus == "Awaiting" && (
+              <LoadingBumper abortFunction={handleRegression} />
+            )}
+            {fetchStatus == "Erroneous" && (
+              <ErrorBumper abortFunction={auxWindowClose} />
+            )}
+            {fetchStatus == "Vacuous" && (
+              <NOResultsBumper abortFunction={handleRegression} />
+            )}
           </div>
         </>
       </DisruptiveCard>

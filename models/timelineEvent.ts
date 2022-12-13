@@ -20,9 +20,9 @@ export type IMonthsWords = [
 export interface ISendableDate {
   dateUTC: Date;
   dateFull: {
-    year: Number;
-    month: Number;
-    day: Number;
+    year: number;
+    month: number;
+    day: number;
   };
 }
 

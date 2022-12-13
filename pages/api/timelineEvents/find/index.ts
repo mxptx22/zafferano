@@ -13,8 +13,8 @@ type resData = {
 };
 
 type IDistinctMonthPairs = {
-  year: Number;
-  month: Number;
+  year: number;
+  month: number;
 };
 
 export default async function handler(
