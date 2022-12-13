@@ -1,5 +1,7 @@
-import dbConnect from "../../../dbConnect";
-import timelineEvent, { ISendableEvent } from "../../../models/timelineEvent";
+import dbConnect from "../../../../dbConnect";
+import timelineEvent, {
+  ISendableEvent,
+} from "../../../../models/timelineEvent";
 import type { NextApiRequest, NextApiResponse } from "next";
 import * as _ from "lodash";
 
