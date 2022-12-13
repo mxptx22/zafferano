@@ -3,6 +3,7 @@ import timelineEvent, {
   ISendableEvent,
 } from "../../../../models/timelineEvent";
 import type { NextApiRequest, NextApiResponse } from "next";
+var ObjectId = require("mongoose").Types.ObjectId;
 
 type resData = {
   success: boolean;
@@ -13,15 +14,15 @@ export default async function handler(
   res: NextApiResponse<resData>
 ) {
   const { method, query } = req;
-
-  const { specificID } = query;
+  const { specificId } = query;
 
   await dbConnect();
 
   switch (method) {
     case "GET":
       try {
-        const timelineeventThis = await timelineEvent.findOne({ specificID });
+        console.log(specificId);
+        const timelineeventThis = await timelineEvent.findById(specificId);
         console.log(timelineeventThis);
 
         res.status(200).json({

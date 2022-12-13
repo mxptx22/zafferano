@@ -67,8 +67,9 @@ const PreviewWindow: FunctionComponent<Props> = ({
   };
 
   useEffect(() => {
+    console.log(previewedEvent);
     handleFetch(previewedEvent!);
-  }, []);
+  }, [previewedEvent]);
 
   return (
     <DisruptiveLayout>
@@ -88,6 +89,8 @@ const PreviewWindow: FunctionComponent<Props> = ({
               <>
                 <h2>This entry is from:</h2>
                 <h1>{new Date(fetchData.dateUTC).toLocaleDateString()}</h1>
+                <button className="btn btn-accent">Delete Me</button>
+                {/* <button className="btn btn-accent">Love Me Later</button> */}
               </>
             </DisruptiveCardRecipe>
           )}

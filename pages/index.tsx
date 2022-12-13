@@ -216,11 +216,6 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
     setWindowStateTwo({ previewWindow: true, previewedEvent: entryID });
   };
 
-  // MEMO Delete afterwards - or maybe don't if you set distinct pairs with lodash
-  useEffect(() => {
-    console.log(data);
-  }, []);
-
   return (
     <>
       <Head>
