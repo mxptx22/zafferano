@@ -3,7 +3,7 @@ import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 
 type Props = {
-  auxWindowClose: Function;
+  auxWindowClose: () => void;
   setWindowState: React.Dispatch<React.SetStateAction<IWindowStateOne>>;
   setSearchInput: Function;
   searchInput: string;

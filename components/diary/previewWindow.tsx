@@ -3,6 +3,7 @@ import { IWindowStateTwo } from "../../pages";
 import { DisruptiveCard, DisruptiveLayout } from "../essentials/layout";
 import { ISendableEvent } from "../../models/timelineEvent";
 import DisruptiveCardRecipe from "./disruptiveCardRecipe";
+import { LoadingBumper, ErrorBumper } from "../essentials/bumpers";
 
 // HERE Go Types
 interface Props {
@@ -66,6 +67,17 @@ const PreviewWindow: FunctionComponent<Props> = ({
     }
   };
 
+  const handleDelete = async (eventID: string | String) => {
+    let res = await fetch(`/api/timelineEvents/find/${eventID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => location.reload())
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     console.log(previewedEvent);
     handleFetch(previewedEvent!);
@@ -87,12 +99,28 @@ const PreviewWindow: FunctionComponent<Props> = ({
               closeFunction={previewWindowClose}
               returnFunction={undefined}>
               <>
-                <h2>This entry is from:</h2>
-                <h1>{new Date(fetchData.dateUTC).toLocaleDateString()}</h1>
-                <button className="btn btn-accent">Delete Me</button>
+                <div className="self-center mb-8">
+                  <h2>This entry is from:</h2>
+                  <h1>{new Date(fetchData.dateUTC).toLocaleDateString()}</h1>
+                </div>
+                <button
+                  onClick={() => {
+                    handleDelete(fetchData._id!);
+                  }}
+                  className="btn btn-accent self-center">
+                  Delete Me
+                </button>
                 {/* <button className="btn btn-accent">Love Me Later</button> */}
               </>
             </DisruptiveCardRecipe>
+          )}
+
+          {fetchStatus == "Awaiting" && (
+            <LoadingBumper abortFunction={previewWindowClose} />
+          )}
+
+          {fetchStatus == "Erroneous" && (
+            <ErrorBumper abortFunction={previewWindowClose} />
           )}
         </>
       </DisruptiveCard>

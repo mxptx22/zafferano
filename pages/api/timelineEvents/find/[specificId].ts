@@ -21,7 +21,6 @@ export default async function handler(
   switch (method) {
     case "GET":
       try {
-        console.log(specificId);
         const timelineeventThis = await timelineEvent.findById(specificId);
         console.log(timelineeventThis);
 
@@ -29,6 +28,17 @@ export default async function handler(
           success: true,
           data: timelineeventThis,
         });
+      } catch (error) {
+        res.status(400).json({ success: false });
+      }
+      break;
+    case "DELETE":
+      try {
+        const timelineeventThis = await timelineEvent.findByIdAndRemove(
+          specificId
+        );
+        console.log(timelineeventThis);
+        res.redirect("/");
       } catch (error) {
         res.status(400).json({ success: false });
       }

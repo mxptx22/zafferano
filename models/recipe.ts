@@ -108,12 +108,3 @@ export interface ISelectionRecipe {
   strTags: string;
   strYoutube: string;
 }
-
-const recipeSchema = new Schema({
-  name: String,
-  image: String,
-});
-
-const Recipe = models.Recipe || model("Recipe", recipeSchema);
-
-export default Recipe;
