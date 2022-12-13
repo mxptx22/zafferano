@@ -1,19 +1,11 @@
-import {
-  FunctionComponent,
-  JSXElementConstructor,
-  ReactComponentElement,
-  ReactElement,
-  ReactFragment,
-  useEffect,
-  useState,
-} from "react";
+import { FunctionComponent, ReactElement, useEffect, useState } from "react";
 import { Layout } from "../components/essentials/layout";
 import AuxWindowAdd from "../components/diary/auxWindowAdd";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ISendableEvent } from "../models/timelineEvent";
-import TimelineGrid from "../components/diary/TimelineGrid";
 import { IMonthsWords } from "../models/timelineEvent";
+import PreviewWindow from "../components/diary/previewWindow";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -21,6 +13,11 @@ const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 export interface IWindowStateOne {
   auxWindow: boolean;
   auxDisplayStep: "Search" | "Choose" | "Confirm";
+}
+
+export interface IWindowStateTwo {
+  previewWindow: boolean;
+  previewedEvent: string | undefined;
 }
 
 interface IFetchedSSProps {
@@ -37,6 +34,7 @@ type ISuccessfulScreenMatchingDates = {
 };
 
 type ISuccessfulScreenProps = {
+  previewWindowOpen: any;
   thisYear: number;
   data: Array<ISendableEvent>;
   thoseMonths: number[];
@@ -47,6 +45,7 @@ type ISuccessfulScreenGridProps = {
 };
 
 type ISuccessfulScreenGridCardProps = {
+  previewWindowOpen: any;
   name: Required<ISendableEvent["name"]>;
   image: Required<ISendableEvent["image"]>;
   dateUTC: Required<ISendableEvent["dateUTC"]>;
@@ -63,6 +62,7 @@ export const VacuousScreen = () => {
 };
 
 export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
+  previewWindowOpen,
   thisYear,
   thoseMonths,
   data,
@@ -105,6 +105,7 @@ export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
                         image={item.image}
                         dateUTC={item.dateUTC}
                         mongoID={item._id!}
+                        previewWindowOpen={previewWindowOpen}
                       />
                     );
                   })}
@@ -117,6 +118,7 @@ export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
   );
 };
 
+// MEMO Is this thing below even necessary? Just put it above...
 export const SuccessfulScreenGrid: FunctionComponent<
   ISuccessfulScreenGridProps
 > = ({ children }) => {
@@ -125,12 +127,16 @@ export const SuccessfulScreenGrid: FunctionComponent<
 
 export const SuccessfulScreenGridCard: FunctionComponent<
   ISuccessfulScreenGridCardProps
-> = ({ name, image, dateUTC, mongoID }) => {
+> = ({ name, image, dateUTC, mongoID, previewWindowOpen }) => {
   return (
     <div className="my-2">
-      <div className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
+      <div
+        onClick={() => {
+          previewWindowOpen(mongoID);
+        }}
+        className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
         <figure className="relative h-full">
-          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-200 flex items-center justify-center">
+          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-100 flex items-center justify-center">
             <div className="text-3xl font-semibold">
               {new Date(dateUTC).getDate()}
             </div>
@@ -189,17 +195,25 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
   distinctYears,
   distinctDates,
 }) => {
-  const [windowState, setWindowState] = useState<IWindowStateOne>({
+  const [windowStateOne, setWindowStateOne] = useState<IWindowStateOne>({
     auxWindow: false,
     auxDisplayStep: "Search",
   });
+  const [windowStateTwo, setWindowStateTwo] = useState<IWindowStateTwo>({
+    previewWindow: false,
+    previewedEvent: undefined,
+  });
 
   const auxWindowClose = () => {
-    setWindowState({ auxWindow: false, auxDisplayStep: "Search" });
+    setWindowStateOne({ auxWindow: false, auxDisplayStep: "Search" });
   };
 
   const auxWindowOpen = () => {
-    setWindowState({ auxWindow: true, auxDisplayStep: "Search" });
+    setWindowStateOne({ auxWindow: true, auxDisplayStep: "Search" });
+  };
+
+  const previewWindowOpen = (entryID: string) => {
+    setWindowStateTwo({ previewWindow: true, previewedEvent: entryID });
   };
 
   // MEMO Delete afterwards - or maybe don't if you set distinct pairs with lodash
@@ -218,12 +232,19 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {windowState.auxWindow === true && (
+      {windowStateOne.auxWindow === true && (
         <AuxWindowAdd
-          windowState={windowState}
-          setWindowState={setWindowState}
+          windowState={windowStateOne}
+          setWindowState={setWindowStateOne}
         />
       )}
+      {windowStateTwo.previewWindow === true &&
+        windowStateTwo.previewedEvent !== undefined && (
+          <PreviewWindow
+            windowState={windowStateTwo}
+            setWindowState={setWindowStateTwo}
+          />
+        )}
       <Layout>
         <>
           <header>
@@ -245,6 +266,7 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
                 <>
                   <h1 className="my-4">{thisYear}</h1>
                   <SuccessfulScreen
+                    previewWindowOpen={previewWindowOpen}
                     thisYear={thisYear}
                     thoseMonths={distinctDates
                       .filter((v) => v.year == thisYear)

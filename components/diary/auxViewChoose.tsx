@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  useState,
-  ChangeEvent,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { FunctionComponent, useState, useEffect, useMemo } from "react";
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 import { ISelectionRecipe } from "../../models/recipe";

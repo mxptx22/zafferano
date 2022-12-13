@@ -1,5 +1,7 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Navbar } from "./navbar";
+
+// HERE Go Types
 
 export function Layout(props: { children: JSX.Element }) {
   return (
@@ -23,7 +25,7 @@ export function DisruptiveLayout(props: { children: JSX.Element }) {
   );
 }
 
-export function DisruptiveCard(props: { children: JSX.Element }) {
+export const DisruptiveCard = (props: { children: JSX.Element }) => {
   return (
     <>
       <div className="animation-slidein w-5/6 h-5/6 bg-base-100 shadow-2xl rounded-xl">
@@ -31,4 +33,4 @@ export function DisruptiveCard(props: { children: JSX.Element }) {
       </div>
     </>
   );
-}
+};
