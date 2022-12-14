@@ -14,11 +14,11 @@ interface Props {
   setWindowState: React.Dispatch<React.SetStateAction<IWindowStateOne>>;
 }
 
-const AuxWindowAdd: FunctionComponent<Props> = ({
+const AuxWindowAdd = ({
   // MEMO Do not delete window state - you will need it in the future to determine content visibility
   windowState,
   setWindowState,
-}) => {
+}: Props) => {
   // HERE go auxiliary functions
   const [searchInput, setSearchInput] = useState<string>("");
   const [selectionRecipe, setSelectionRecipe] =

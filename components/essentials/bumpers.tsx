@@ -6,9 +6,7 @@ export type IBumperProps = {
   abortFunction: () => void;
 };
 
-export const LoadingBumper: FunctionComponent<IBumperProps> = ({
-  abortFunction,
-}) => {
+export const LoadingBumper = ({ abortFunction }: IBumperProps) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-8">
       <div className="text-8xl justify-center">Loading...</div>
@@ -19,9 +17,7 @@ export const LoadingBumper: FunctionComponent<IBumperProps> = ({
   );
 };
 
-export const ErrorBumper: FunctionComponent<IBumperProps> = ({
-  abortFunction,
-}) => {
+export const ErrorBumper = ({ abortFunction }: IBumperProps) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-8">
       {/* That weird code's meant to say sad face emoji :( */}
@@ -35,9 +31,7 @@ export const ErrorBumper: FunctionComponent<IBumperProps> = ({
   );
 };
 
-export const NOResultsBumper: FunctionComponent<IBumperProps> = ({
-  abortFunction,
-}) => {
+export const NOResultsBumper = ({ abortFunction }: IBumperProps) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-8">
       {/* That weird code's meant to say sad face emoji :( */}

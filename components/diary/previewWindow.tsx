@@ -19,10 +19,10 @@ type resData = {
 type IFetchStatus = "Successful" | "Erroneous" | "Awaiting";
 type IFetchData = ISendableEvent;
 
-const PreviewWindow: FunctionComponent<Props> = ({
+const PreviewWindow = ({
   setWindowState,
   windowState: { previewedEvent },
-}) => {
+}: Props) => {
   // HERE Go Auxiliary Functions
 
   const [fetchStatus, setFetchStatus] = useState<IFetchStatus>("Awaiting");
@@ -44,7 +44,6 @@ const PreviewWindow: FunctionComponent<Props> = ({
         },
       });
       let thisTimelineEvent: resData = await res.json();
-      console.log(thisTimelineEvent);
       if (thisTimelineEvent.success == true) {
         if (typeof thisTimelineEvent.data === "object") {
           setFetchStatus("Successful");
@@ -79,7 +78,6 @@ const PreviewWindow: FunctionComponent<Props> = ({
   };
 
   useEffect(() => {
-    console.log(previewedEvent);
     handleFetch(previewedEvent!);
   }, [previewedEvent]);
 

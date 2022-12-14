@@ -14,9 +14,7 @@ export type IDisruptiveCardRecipeProps = {
   closeFunction: () => void;
 };
 
-export const DisruptiveCardRecipe: FunctionComponent<
-  IDisruptiveCardRecipeProps
-> = ({
+export const DisruptiveCardRecipe = ({
   area,
   children,
   category,
@@ -27,7 +25,7 @@ export const DisruptiveCardRecipe: FunctionComponent<
   name,
   returnFunction,
   instructions,
-}) => {
+}: IDisruptiveCardRecipeProps) => {
   return (
     <>
       <div className="flex flex-col h-full w-full justify-between overflow-hidden">

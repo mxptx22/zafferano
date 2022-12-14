@@ -40,115 +40,12 @@ type ISuccessfulScreenProps = {
   thoseMonths: number[];
 };
 
-type ISuccessfulScreenGridProps = {
-  children: ReactElement<any>;
-};
-
 type ISuccessfulScreenGridCardProps = {
   previewWindowOpen: any;
   name: Required<ISendableEvent["name"]>;
   image: Required<ISendableEvent["image"]>;
   dateUTC: Required<ISendableEvent["dateUTC"]>;
   mongoID: Required<NonNullable<ISendableEvent["_id"]>>;
-};
-
-// HERE Go additional screens
-export const ErroneousScreen = () => {
-  return <div>Some Error Occurred</div>;
-};
-
-export const VacuousScreen = () => {
-  return <div>There's Nothing Here! Add First Entry!</div>;
-};
-
-export const SuccessfulScreen: FunctionComponent<ISuccessfulScreenProps> = ({
-  previewWindowOpen,
-  thisYear,
-  thoseMonths,
-  data,
-}) => {
-  // HERE Words speak louder
-  const monthsWords: IMonthsWords = [
-    null,
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  return (
-    <>
-      {thoseMonths.map((thisMonth: number) => {
-        return (
-          <>
-            <h2 className="my-2">{monthsWords[thisMonth]}</h2>
-            <SuccessfulScreenGrid>
-              <>
-                {data
-                  .filter(
-                    (z) =>
-                      z.dateFull.year == thisYear &&
-                      z.dateFull.month == thisMonth
-                  )
-                  .map((item) => {
-                    return (
-                      <SuccessfulScreenGridCard
-                        name={item.name}
-                        image={item.image}
-                        dateUTC={item.dateUTC}
-                        mongoID={item._id!}
-                        previewWindowOpen={previewWindowOpen}
-                      />
-                    );
-                  })}
-              </>
-            </SuccessfulScreenGrid>
-          </>
-        );
-      })}
-    </>
-  );
-};
-
-// MEMO Is this thing below even necessary? Just put it above...
-export const SuccessfulScreenGrid: FunctionComponent<
-  ISuccessfulScreenGridProps
-> = ({ children }) => {
-  return <div className="w-full grid grid-cols-4 gap-4">{children}</div>;
-};
-
-export const SuccessfulScreenGridCard: FunctionComponent<
-  ISuccessfulScreenGridCardProps
-> = ({ name, image, dateUTC, mongoID, previewWindowOpen }) => {
-  return (
-    <div className="my-2">
-      <div
-        onClick={() => {
-          previewWindowOpen(mongoID);
-        }}
-        className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
-        <figure className="relative h-full">
-          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-100 flex items-center justify-center">
-            <div className="text-3xl font-semibold">
-              {new Date(dateUTC).getDate()}
-            </div>
-          </div>
-          <img src={image} alt={`Image of ${name}`} />
-        </figure>
-        <div className="card-body h-36 overflow-hidden">
-          <h2 className="card-title">{name}</h2>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 // HERE You fetch props from the serva
@@ -189,12 +86,13 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const Home: FunctionComponent<IFetchedSSProps> = ({
+// HERE Is the real deal
+const Home = ({
   successScreen,
   data,
   distinctYears,
   distinctDates,
-}) => {
+}: IFetchedSSProps) => {
   const [windowStateOne, setWindowStateOne] = useState<IWindowStateOne>({
     auxWindow: false,
     auxDisplayStep: "Search",
@@ -203,10 +101,6 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
     previewWindow: false,
     previewedEvent: undefined,
   });
-
-  const auxWindowClose = () => {
-    setWindowStateOne({ auxWindow: false, auxDisplayStep: "Search" });
-  };
 
   const auxWindowOpen = () => {
     setWindowStateOne({ auxWindow: true, auxDisplayStep: "Search" });
@@ -222,7 +116,7 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
         <title>Diary - Zafferano</title>
         <meta
           name="description"
-          content="Your recipe diary. Your portal to better eating."
+          content="Your recipe diary. Your portal to better food."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -274,6 +168,98 @@ const Home: FunctionComponent<IFetchedSSProps> = ({
         </>
       </Layout>
     </>
+  );
+};
+
+// HERE Go additional screens
+export const ErroneousScreen = () => {
+  return <div>Some Error Occurred</div>;
+};
+
+export const VacuousScreen = () => {
+  return <div>There's Nothing Here! Add First Entry!</div>;
+};
+
+export const SuccessfulScreen = ({
+  previewWindowOpen,
+  thisYear,
+  thoseMonths,
+  data,
+}: ISuccessfulScreenProps) => {
+  const monthsWords: IMonthsWords = [
+    null,
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  return (
+    <>
+      {thoseMonths.map((thisMonth: number) => {
+        return (
+          <>
+            <h2 className="my-2">{monthsWords[thisMonth]}</h2>
+            <div className="w-full grid grid-cols-4 gap-4">
+              {data
+                .filter(
+                  (z) =>
+                    z.dateFull.year == thisYear && z.dateFull.month == thisMonth
+                )
+                .map((item) => {
+                  return (
+                    <SuccessfulScreenGridCard
+                      name={item.name}
+                      image={item.image}
+                      dateUTC={item.dateUTC}
+                      mongoID={item._id!}
+                      previewWindowOpen={previewWindowOpen}
+                    />
+                  );
+                })}
+            </div>
+          </>
+        );
+      })}
+    </>
+  );
+};
+
+export const SuccessfulScreenGridCard = ({
+  name,
+  image,
+  dateUTC,
+  mongoID,
+  previewWindowOpen,
+}: ISuccessfulScreenGridCardProps) => {
+  return (
+    <div className="my-2">
+      <div
+        onClick={() => {
+          previewWindowOpen(mongoID);
+        }}
+        className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
+        <figure className="relative h-full">
+          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-100 flex items-center justify-center">
+            <div className="text-3xl font-semibold">
+              {new Date(dateUTC).getDate()}
+            </div>
+          </div>
+          <img src={image} alt={`Image of ${name}`} />
+        </figure>
+        <div className="card-body h-36 overflow-hidden">
+          <h2 className="card-title">{name}</h2>
+        </div>
+      </div>
+    </div>
   );
 };
 

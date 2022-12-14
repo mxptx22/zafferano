@@ -23,12 +23,12 @@ type Props = {
   searchInput: string;
 };
 
-const AuxViewChoose: FunctionComponent<Props> = ({
+const AuxViewChoose = ({
   auxWindowClose,
   setWindowState,
   searchInput,
   setSelectionRecipe,
-}) => {
+}: Props) => {
   // HERE Go auxiliary functions
 
   type IFetchStatus = "Successful" | "Erroneous" | "Vacuous" | "Awaiting";
@@ -62,7 +62,6 @@ const AuxViewChoose: FunctionComponent<Props> = ({
       });
 
       output = await response.json();
-      console.log(output);
       if (output.success == true) {
         if (output.data.meals) {
           setFetchStatus("Successful");

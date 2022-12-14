@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 
@@ -9,12 +9,12 @@ type Props = {
   searchInput: string;
 };
 
-const AuxViewSearch: FunctionComponent<Props> = ({
+const AuxViewSearch = ({
   auxWindowClose,
   setSearchInput,
   setWindowState,
   searchInput,
-}) => {
+}: Props) => {
   // Here go auxiliary functions
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);

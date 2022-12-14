@@ -1,9 +1,4 @@
-import React, {
-  FunctionComponent,
-  useState,
-  ChangeEvent,
-  useEffect,
-} from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
 import { ISelectionRecipe, ISendableRecipe } from "../../models/recipe";
@@ -25,12 +20,12 @@ type Props = {
   selectionRecipe: Partial<ISelectionRecipe> | undefined;
 };
 
-const AuxViewConfirm: FunctionComponent<Props> = ({
+const AuxViewConfirm = ({
   auxWindowClose,
   setWindowState,
   setSelectionRecipe,
   selectionRecipe,
-}) => {
+}: Props) => {
   // HERE Go auxiliary functions
 
   const [selectionDate, setSelectionDate] = useState<Date>();
