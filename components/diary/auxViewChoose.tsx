@@ -62,7 +62,7 @@ const AuxViewChoose = ({
       });
 
       output = await response.json();
-      if (output.success == true) {
+      if (output.success) {
         if (output.data.meals) {
           setFetchStatus("Successful");
           setFetchData(output.data.meals);
@@ -92,7 +92,7 @@ const AuxViewChoose = ({
             <img src={item.strMealThumb} alt={`Image of ${item.strMeal}`} />
           </figure>
           <div className="card-body">
-            <h2 className="card-title">{item.strMeal}</h2>
+            <h3 className="card-title">{item.strMeal}</h3>
             <p>
               {item.strArea} - {item.strCategory}
             </p>

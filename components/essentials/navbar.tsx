@@ -1,12 +1,15 @@
 import React from "react";
+import { LogoTextual as Logo } from "./logo";
 
 export function Navbar() {
   return (
     <>
       <div className="navbar bg-primary-focus text-primary-content px-6">
         <div className="flex-1">
-          <a href="/" className="btn btn-ghost normal-case text-xl">
-            Zafferano
+          <a
+            href="/"
+            className="btn btn-ghost normal-case text-xl h-full flex justify-center items-center">
+            <Logo />
           </a>
         </div>
         <div className="flex-none">

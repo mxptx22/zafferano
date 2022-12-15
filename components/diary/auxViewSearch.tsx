@@ -60,10 +60,13 @@ const AuxViewSearch = ({
                 className="input input-primary input-lg w-full text-center text-2xl"
               />
               <button
-                className="btn btn-primary btn-xl text-2xl"
+                className="btn btn-primary btn-xl text-xl"
                 onClick={() => {
                   handleProgression();
                 }}>
+                <span className="material-icons-outlined iconic-l">
+                  manage_search
+                </span>
                 Search
               </button>
             </div>

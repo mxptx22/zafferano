@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Layout } from "../components/essentials/layout";
 import AuxWindowAdd from "../components/diary/auxWindowAdd";
 import { GetServerSideProps } from "next";
@@ -6,6 +6,11 @@ import Head from "next/head";
 import { ISendableEvent } from "../models/timelineEvent";
 import { IMonthsWords } from "../models/timelineEvent";
 import PreviewWindow from "../components/diary/previewWindow";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+} from "body-scroll-lock";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -62,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<
 
   let allTimelineEvents = await res.json();
 
-  if (allTimelineEvents.success == true) {
+  if (allTimelineEvents.success) {
     if (allTimelineEvents.data.length > 0) {
       return {
         props: {
@@ -77,12 +82,10 @@ export const getServerSideProps: GetServerSideProps<
         props: { successScreen: "Vacuous" },
       };
     }
-  } else if (allTimelineEvents.success == false) {
+  } else {
     return {
       props: { successScreen: "Erroneous" },
     };
-  } else {
-    throw new Error();
   }
 };
 
@@ -110,8 +113,24 @@ const Home = ({
     setWindowStateTwo({ previewWindow: true, previewedEvent: entryID });
   };
 
+  // Scroll Lock Shenanigans
+  const containerRef: any = useRef();
+  const targetElement = containerRef.current;
+
+  useEffect(() => {
+    if (windowStateOne.auxWindow || windowStateTwo.previewWindow) {
+      disableBodyScroll(targetElement);
+    } else {
+      enableBodyScroll(targetElement);
+    }
+
+    return () => {
+      enableBodyScroll(targetElement);
+    };
+  }, [windowStateOne, windowStateTwo]);
+
   return (
-    <>
+    <div className="w-screen h-screen overflow-auto" ref={containerRef}>
       <Head>
         <title>Diary - Zafferano</title>
         <meta
@@ -139,8 +158,11 @@ const Home = ({
           <header>
             <h1>Your Diary</h1>
             <button
-              className="btn btn-primary text-xl"
+              className="btn btn-primary text-lg"
               onClick={() => auxWindowOpen()}>
+              <span className="material-icons-outlined iconic-l">
+                library_add
+              </span>
               Add Entry
             </button>
           </header>
@@ -153,7 +175,7 @@ const Home = ({
             distinctYears.map((thisYear: number) => {
               return (
                 <>
-                  <h1 className="my-4">{thisYear}</h1>
+                  <div className="year">{thisYear}</div>
                   <SuccessfulScreen
                     previewWindowOpen={previewWindowOpen}
                     thisYear={thisYear}
@@ -167,7 +189,7 @@ const Home = ({
             })}
         </>
       </Layout>
-    </>
+    </div>
   );
 };
 
@@ -207,7 +229,7 @@ export const SuccessfulScreen = ({
       {thoseMonths.map((thisMonth: number) => {
         return (
           <>
-            <h2 className="my-2">{monthsWords[thisMonth]}</h2>
+            <div className="month">{monthsWords[thisMonth]}</div>
             <div className="w-full grid grid-cols-4 gap-4">
               {data
                 .filter(
@@ -256,7 +278,7 @@ export const SuccessfulScreenGridCard = ({
           <img src={image} alt={`Image of ${name}`} />
         </figure>
         <div className="card-body h-36 overflow-hidden">
-          <h2 className="card-title">{name}</h2>
+          <div className="card-title">{name}</div>
         </div>
       </div>
     </div>

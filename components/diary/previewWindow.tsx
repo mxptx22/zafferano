@@ -98,15 +98,19 @@ const PreviewWindow = ({
               returnFunction={undefined}>
               <>
                 <div className="self-center mb-8">
-                  <h2>This entry is from:</h2>
-                  <h1>{new Date(fetchData.dateUTC).toLocaleDateString()}</h1>
+                  {/* FIXME Make it look nicer */}
+                  <div>This entry is from:</div>
+                  <div>{new Date(fetchData.dateUTC).toLocaleDateString()}</div>
                 </div>
                 <button
                   onClick={() => {
                     handleDelete(fetchData._id!);
                   }}
-                  className="btn btn-accent self-center">
-                  Delete Me
+                  className="btn btn-accent self-center text-xl">
+                  <span className="material-icons-outlined iconic-l">
+                    delete
+                  </span>
+                  Delete
                 </button>
                 {/* <button className="btn btn-accent">Love Me Later</button> */}
               </>

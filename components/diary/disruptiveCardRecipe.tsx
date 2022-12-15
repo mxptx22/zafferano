@@ -31,7 +31,7 @@ export const DisruptiveCardRecipe = ({
       <div className="flex flex-col h-full w-full justify-between overflow-hidden">
         <div className="h-80 w-full relative mb-14">
           <img
-            className="rounded-t-lg h-full w-full absolute object-cover object-center hover:object-top transition-all duration-[900ms]"
+            className="rounded-t-lg h-full w-full absolute object-cover object-center hover:object-top transition-all duration-[4s]"
             src={image}
             alt={`Image of ${name}`}
           />
@@ -73,16 +73,21 @@ export const DisruptiveCardRecipe = ({
 
           <div className="ml-12 w-fit h-fit text-xl relative top-[75%]">
             <div className="bg-base-100 blur-lg shadow-xl h-full w-full absolute"></div>
-            <div className="text-7xl font-bold relative h-fit max-h-24 w-full overflow-hidden">
+            <h1 className="relative h-fit max-h-24 w-full overflow-hidden">
               {/* FIXME Spaghetti cuts g (ligature or whatever it's called) down when overflow hidden */}
               {name}
-            </div>
+            </h1>
           </div>
         </div>
         <div className="w-full h-full overflow-scroll gap-4 justify-between pb-8 px-12 ">
           <div className="w-full flex gap-4">
             <div className="w-2/3 ">
-              <h2 className="h2-underline">🛒 You will need...</h2>
+              <h2 className="h2-underline">
+                <span className="material-icons-outlined iconic-l">
+                  shopping_cart
+                </span>
+                You will need...
+              </h2>
               <div className="grid grid-cols-2">
                 {ingredients
                   .filter((iy) => iy !== "")
@@ -95,13 +100,25 @@ export const DisruptiveCardRecipe = ({
                     </li>
                   ))}
               </div>
-              <h2 className="h2-underline">📜 About this recipe...</h2>
+              <h2 className="h2-underline">
+                {" "}
+                <span className="material-icons-outlined iconic-l">
+                  receipt_long
+                </span>
+                About this recipe...
+              </h2>
               <div>
                 {area && category
                   ? `This is a ${category} recipe typically associated with ${area} cuisine.`
                   : "We're not really too sure about this one."}
               </div>
-              <h2 className="h2-underline">🧑🏼‍🍳 How it's made...</h2>
+              <h2 className="h2-underline">
+                {" "}
+                <span className="material-icons-outlined iconic-l">
+                  local_dining
+                </span>
+                How it's made...
+              </h2>
               <div className="whitespace-pre-wrap leading-relaxed text-justify">
                 {instructions.replace(/(\r\n|\n|\r)/gm, "\n")}
               </div>
