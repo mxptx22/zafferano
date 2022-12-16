@@ -1,6 +1,9 @@
 import React, { useState, ChangeEvent } from "react";
 import { DisruptiveCard } from "../essentials/layout";
 import { IWindowStateOne } from "../../pages/index";
+import Champignons from "../backgrounds/champignons";
+// @ts-ignore
+import useKeypress from "react-use-keypress";
 
 type Props = {
   auxWindowClose: () => void;
@@ -26,11 +29,15 @@ const AuxViewSearch = ({
       setWindowState({ auxDisplayStep: "Choose", auxWindow: true });
   };
 
+  useKeypress("Enter", () => {
+    handleProgression();
+  });
+
   return (
     <>
       <DisruptiveCard>
         <>
-          <div className="p-12">
+          <div className="p-12 h-full relative flex flex-col items-stretch">
             <header>
               <h1>Search</h1>
               <div>
@@ -53,14 +60,14 @@ const AuxViewSearch = ({
                 </button>
               </div>
             </header>
-            <div className="w-full h-2/3 flex justify-center items-center px-8 gap-4 flex-col">
+            <div className="w-full h-fit flex justify-center items-center mt-28 px-8 gap-4 flex-col">
               <input
                 value={searchInput}
                 onChange={handleInput}
                 className="input input-primary input-lg w-full text-center text-2xl"
               />
               <button
-                className="btn btn-primary btn-xl text-xl"
+                className="btn btn-primary btn-xl text-xl z-10"
                 onClick={() => {
                   handleProgression();
                 }}>
@@ -69,6 +76,9 @@ const AuxViewSearch = ({
                 </span>
                 Search
               </button>
+            </div>
+            <div className="absolute bottom-0 self-center h-1/2 w-[90%] fill-primary overflow-hidden opacity-20 z-0">
+              <Champignons />
             </div>
           </div>
         </>

@@ -4,6 +4,8 @@ import { DisruptiveCard, DisruptiveLayout } from "../essentials/layout";
 import { ISendableEvent } from "../../models/timelineEvent";
 import DisruptiveCardRecipe from "./disruptiveCardRecipe";
 import { LoadingBumper, ErrorBumper } from "../essentials/bumpers";
+// @ts-ignore
+import useKeypress from "react-use-keypress";
 
 // HERE Go Types
 interface Props {
@@ -34,6 +36,10 @@ const PreviewWindow = ({
     setFetchStatus("Awaiting");
     setFetchData(undefined);
   };
+
+  useKeypress("Escape", () => {
+    previewWindowClose();
+  });
 
   const handleFetch = async (eventID: string) => {
     try {

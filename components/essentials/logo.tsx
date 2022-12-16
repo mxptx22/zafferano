@@ -4,7 +4,7 @@ export function LogoImage() {
   return (
     <svg
       viewBox="0 0 277 247"
-      className="fill-secondary-content h-7"
+      className="h-7"
       xmlns="http://www.w3.org/2000/svg">
       <path
         fillRule="evenodd"
@@ -18,9 +18,9 @@ export function LogoImage() {
 
 export function LogoTextual() {
   return (
-    <div className="flex items-center justify-center gap-3 h-full w-full">
+    <div className="flex fill-primary-content items-center justify-center gap-3 h-full w-full">
       <LogoImage />
-      <div className="text-2xl leading-3 text-secondary-content logo-font">
+      <div className="text-2xl leading-3 text-primary-content logo-font">
         Zafferano
       </div>
     </div>

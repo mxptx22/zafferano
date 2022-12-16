@@ -11,6 +11,8 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
+import { DividerOne } from "../components/backgrounds/dividers";
+import Vine from "../components/backgrounds/vine";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -130,7 +132,12 @@ const Home = ({
   }, [windowStateOne, windowStateTwo]);
 
   return (
-    <div className="w-screen h-screen overflow-auto" ref={containerRef}>
+    <div
+      className="w-screen h-screen overflow-auto relative"
+      ref={containerRef}>
+      <div className="w-[150%] h-screen fixed -z-20 fill-base-content opacity-[0.03]">
+        <Vine />
+      </div>
       <Head>
         <title>Diary - Zafferano</title>
         <meta
@@ -175,7 +182,7 @@ const Home = ({
             distinctYears.map((thisYear: number) => {
               return (
                 <>
-                  <div className="year">{thisYear}</div>
+                  <YearDecoration>{thisYear}</YearDecoration>
                   <SuccessfulScreen
                     previewWindowOpen={previewWindowOpen}
                     thisYear={thisYear}
@@ -271,7 +278,7 @@ export const SuccessfulScreenGridCard = ({
         className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
         <figure className="relative h-full">
           <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-100 flex items-center justify-center">
-            <div className="text-3xl font-semibold">
+            <div className="text-4xl font-bold font-serif">
               {new Date(dateUTC).getDate()}
             </div>
           </div>
@@ -284,5 +291,21 @@ export const SuccessfulScreenGridCard = ({
     </div>
   );
 };
+
+export function YearDecoration(props: { children: any }) {
+  return (
+    <div className="flex flex-col w-full items-center year">
+      <div className="w-40 fill-base-content">
+        <DividerOne />
+      </div>
+      <div className="text-center  p-2 -mb-2 -mt-2 rounded-sm">
+        {props.children}
+      </div>
+      <div className="w-40 fill-base-content">
+        <DividerOne />
+      </div>
+    </div>
+  );
+}
 
 export default Home;

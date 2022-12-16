@@ -7,6 +7,8 @@ import AuxViewSearch from "./auxViewSearch";
 import AuxViewChoose from "./auxViewChoose";
 import AuxViewConfirm from "./auxViewConfirm";
 import { ISelectionRecipe } from "../../models/recipe";
+// @ts-ignore
+import useKeypress from "react-use-keypress";
 
 // HERE go types
 interface Props {
@@ -29,6 +31,10 @@ const AuxWindowAdd = ({
     setSearchInput("");
     setSelectionRecipe(undefined);
   };
+
+  useKeypress("Escape", () => {
+    auxWindowClose();
+  });
 
   // HERE goes the layout
   return (

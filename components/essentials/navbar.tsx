@@ -4,7 +4,7 @@ import { LogoTextual as Logo } from "./logo";
 export function Navbar() {
   return (
     <>
-      <div className="navbar bg-primary-focus text-primary-content px-6">
+      <div className="navbar bg-primary-focus text-primary-content px-6 fixed z-20">
         <div className="flex-1">
           <a
             href="/"

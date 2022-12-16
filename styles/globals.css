@@ -4,8 +4,7 @@
 
 @layer base {
   body {
-    @apply tracking-wider;
-    font-family: "Yaldevi";
+    @apply tracking-wider text-lg font-sans;
   }
 
   .iconic-l {
@@ -19,21 +18,19 @@
   }
 
   nav {
-    @apply mb-8;
+    @apply mb-28 w-full;
   }
   header {
     @apply mb-10 flex justify-between items-center;
   }
 
   h1 {
-    @apply text-7xl;
-    font-family: "Cormorant";
+    @apply text-7xl font-serif;
     font-weight: 700;
   }
 
   h2 {
-    @apply text-5xl font-medium;
-    font-family: "Cormorant";
+    @apply text-5xl font-medium font-serif;
     font-weight: 700;
     font-variant-ligatures: none;
   }
@@ -45,21 +42,11 @@
 
 @layer components {
   .year {
-    @apply uppercase text-5xl font-bold relative mt-16 mb-8;
-    font-family: "Yaldevi", sans-serif;
-  }
-
-  .year::before {
-    @apply absolute text-xl normal-case;
-    font-family: "Cormorant", serif;
-    content: "The year is";
-    bottom: 100%;
-    font-weight: 500;
+    @apply uppercase text-5xl font-semibold mt-16 mb-8 font-serif relative;
   }
 
   .month {
-    @apply uppercase text-2xl mt-8 mb-2;
-    font-family: "Yaldevi", sans-serif;
+    @apply uppercase text-2xl mt-8 mb-2 font-sans;
   }
 
   @keyframes fadein {
@@ -99,8 +86,7 @@
   }
 
   .logo-font {
-    @apply tracking-wider;
-    font-family: "Cormorant";
+    @apply tracking-wider font-serif;
     font-weight: 300;
   }
 }

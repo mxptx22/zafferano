@@ -16,7 +16,7 @@ export function Layout(props: { children: JSX.Element }) {
 export function DisruptiveLayout(props: { children: JSX.Element }) {
   return (
     <>
-      <div className="w-screen h-screen fixed z-10">
+      <div className="w-screen h-screen fixed z-30">
         <div className="w-full h-full backdrop-blur-md flex justify-center items-center animation-fadein">
           {props.children}
         </div>

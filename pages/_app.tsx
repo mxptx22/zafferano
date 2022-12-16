@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import "@fontsource/cormorant/700.css";
-import "@fontsource/cormorant/600.css";
-import "@fontsource/cormorant/500.css";
-import "@fontsource/cormorant/400.css";
-import "@fontsource/cormorant/300.css";
+import "@fontsource/cormorant-infant/700.css";
+import "@fontsource/cormorant-infant/600.css";
+import "@fontsource/cormorant-infant/500.css";
+import "@fontsource/cormorant-infant/400.css";
+import "@fontsource/cormorant-infant/300.css";
 
 import "@fontsource/yaldevi/700.css";
 import "@fontsource/yaldevi/600.css";

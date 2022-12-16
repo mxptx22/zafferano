@@ -734,6 +734,11 @@
     "@aws-sdk/util-buffer-from" "3.208.0"
     tslib "^2.3.1"
 
+"@fontsource/cormorant-infant@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/cormorant-infant/-/cormorant-infant-4.5.11.tgz#897ff53d8e2805e9234485950bdabc9d13e1866b"
+  integrity sha512-MdfTmgsWV/GfgeTnPMGUTa+GHXTPGhgM6po8GVlmTFSVgfhPl37SrljU26vAjrzhxvlomWGCdsxIQFGdBl7uOw==
+
 "@fontsource/cormorant@^4.5.9":
   version "4.5.9"
   resolved "https://registry.yarnpkg.com/@fontsource/cormorant/-/cormorant-4.5.9.tgz#6db416297021a9af7b9334b6dda1856bd51fe978"
@@ -1532,6 +1537,13 @@ react-dom@18.2.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
 
+react-use-keypress@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-use-keypress/-/react-use-keypress-1.3.1.tgz#9e0cc433214ae33631995b6f56c8e1cca4c98ba9"
+  integrity sha512-fo+LQrxviMcZt7efCFPc6CX9/oNEPD+MJ/qSs4nK3/lyRNtquhG9f1J8GQq2VFfIYUVDUdPKz8fGIwErO1Pcuw==
+  dependencies:
+    tiny-invariant "^1.2.0"
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -1670,6 +1682,11 @@ tailwindcss@^3, tailwindcss@^3.2.1:
     postcss-value-parser "^4.2.0"
     quick-lru "^5.1.1"
     resolve "^1.22.1"
+
+tiny-invariant@^1.2.0:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
+  integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
 
 to-regex-range@^5.0.1:
   version "5.0.1"
