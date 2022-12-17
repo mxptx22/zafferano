@@ -167,10 +167,10 @@ const Home = ({
             <button
               className="btn btn-primary text-lg"
               onClick={() => auxWindowOpen()}>
-              <span className="material-icons-outlined iconic-l">
+              <span className="material-icons-outlined md:iconic-l">
                 library_add
               </span>
-              Add Entry
+              <span className="hidden md:inline">Add Entry</span>
             </button>
           </header>
           {successScreen == "Erroneous" && <ErroneousScreen />}
@@ -237,7 +237,7 @@ export const SuccessfulScreen = ({
         return (
           <>
             <div className="month">{monthsWords[thisMonth]}</div>
-            <div className="w-full grid grid-cols-4 gap-4">
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {data
                 .filter(
                   (z) =>
@@ -275,17 +275,19 @@ export const SuccessfulScreenGridCard = ({
         onClick={() => {
           previewWindowOpen(mongoID);
         }}
-        className="card h-80 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
+        className="card h-44 md:h-64 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
         <figure className="relative h-full">
-          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-14 rounded-md aspect-square bg-base-100 flex items-center justify-center">
-            <div className="text-4xl font-bold font-serif">
+          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-11 md:h-14 rounded-sm aspect-square bg-base-100 flex items-center justify-center">
+            <div className=" text-3xl md:text-4xl font-bold font-serif">
               {new Date(dateUTC).getDate()}
             </div>
           </div>
           <img src={image} alt={`Image of ${name}`} />
         </figure>
-        <div className="card-body h-36 overflow-hidden">
-          <div className="card-title">{name}</div>
+        <div className="card-body p-2 md:p-4 justify-center h-28 overflow-hidden">
+          <div className="card-title text-base md:text-xl font-medium tracking-wide">
+            {name}
+          </div>
         </div>
       </div>
     </div>

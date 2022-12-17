@@ -6,6 +6,7 @@ import DisruptiveCardRecipe from "./disruptiveCardRecipe";
 import { LoadingBumper, ErrorBumper } from "../essentials/bumpers";
 // @ts-ignore
 import useKeypress from "react-use-keypress";
+import { DividerOne } from "../backgrounds/dividers";
 
 // HERE Go Types
 interface Props {
@@ -73,13 +74,18 @@ const PreviewWindow = ({
   };
 
   const handleDelete = async (eventID: string | String) => {
-    let res = await fetch(`/api/timelineEvents/find/${eventID}`, {
+    await fetch(`/api/timelineEvents/find/${eventID}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => location.reload())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Submission error: Connection to server failed.");
+        }
+        location.reload();
+      })
       .catch((err) => console.log(err));
   };
 
@@ -102,24 +108,33 @@ const PreviewWindow = ({
               name={fetchData.name}
               closeFunction={previewWindowClose}
               returnFunction={undefined}>
-              <>
-                <div className="self-center mb-8">
+              <div className="w-full flex flex-col items-center border-l mt-6 px-8">
+                <div className="w-full mb-8">
                   {/* FIXME Make it look nicer */}
-                  <div>This entry is from:</div>
-                  <div>{new Date(fetchData.dateUTC).toLocaleDateString()}</div>
+                  <div className="text-center uppercase font-thin mb-2">
+                    Entry Dated
+                  </div>
+                  <div className="text-center text-6xl font-serif font-bold">
+                    {new Date(fetchData.dateUTC).toLocaleDateString()}
+                  </div>
                 </div>
-                <button
-                  onClick={() => {
-                    handleDelete(fetchData._id!);
-                  }}
-                  className="btn btn-accent self-center text-xl">
-                  <span className="material-icons-outlined iconic-l">
-                    delete
-                  </span>
-                  Delete
-                </button>
-                {/* <button className="btn btn-accent">Love Me Later</button> */}
-              </>
+                <div className="mb-8 fill-base-content w-2/3">
+                  <DividerOne />
+                  <div className="text-center my-4">
+                    <button
+                      onClick={() => {
+                        handleDelete(fetchData._id!);
+                      }}
+                      className="btn btn-accent self-center btn-sm">
+                      <span className="material-icons-outlined iconic-l">
+                        delete
+                      </span>
+                      Delete
+                    </button>
+                    {/* <button className="btn btn-accent">Love Me Later</button> */}
+                  </div>
+                </div>
+              </div>
             </DisruptiveCardRecipe>
           )}
 

@@ -121,8 +121,6 @@ const AuxViewConfirm = ({
             year: selectedDate.getFullYear(),
           },
         };
-
-        // FIXME It's late but think how not to refresh upon error like you're clearly missing some easy nuance (handleProgression starts despite error)
         await fetch("/api/timelineEvents/manage", {
           method: "POST",
           headers: {
@@ -130,11 +128,12 @@ const AuxViewConfirm = ({
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        })
-          .then(() => handleProgression())
-          .catch((err) => {
+        }).then((res) => {
+          if (!res.ok) {
             throw new Error("Submission error: Connection to server failed.");
-          });
+          }
+          handleProgression();
+        });
       } else {
         throw new Error(
           "Parameter(s) missing: Either no date has been selected or recipe selection hasn't been properly recorded."
@@ -181,7 +180,7 @@ const AuxViewConfirm = ({
           <>
             <div
               id="container-button-addition"
-              className="w-fit h-12 flex self-end gap-2">
+              className="md:w-fit h-12 flex md:self-end gap-2">
               <button
                 className="w-min btn btn-primary"
                 onClick={() => {
@@ -204,7 +203,7 @@ const AuxViewConfirm = ({
                 {selectionDate ? selectionDate?.toLocaleDateString() : "When?"}
               </button>
             </div>
-            <div className="self-end">
+            <div className="md:self-end">
               <DayPicker
                 mode="single"
                 fromYear={2010}

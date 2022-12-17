@@ -4,16 +4,16 @@
 
 @layer base {
   body {
-    @apply tracking-wider text-lg font-sans;
+    @apply tracking-wider md:text-lg font-sans;
   }
 
   .iconic-l {
-    @apply pr-2;
+    @apply md:pr-2;
     font-family: "Material Icons Outlined";
   }
 
   .iconic-r {
-    @apply pl-2;
+    @apply md:pl-2;
     font-family: "Material Icons Outlined";
   }
 
@@ -25,12 +25,12 @@
   }
 
   h1 {
-    @apply text-7xl font-serif;
+    @apply text-5xl md:text-7xl font-serif;
     font-weight: 700;
   }
 
   h2 {
-    @apply text-5xl font-medium font-serif;
+    @apply text-2xl md:text-5xl font-medium font-serif;
     font-weight: 700;
     font-variant-ligatures: none;
   }
@@ -82,7 +82,7 @@
 
 @layer utilities {
   .h2-underline {
-    @apply border-b pb-1 w-fit pr-16 my-4;
+    @apply border-b pb-1 w-fit md:pr-16 my-4;
   }
 
   .logo-font {

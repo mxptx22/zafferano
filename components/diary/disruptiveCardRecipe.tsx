@@ -37,7 +37,7 @@ export const DisruptiveCardRecipe = ({
           />
           <div
             id="container-button-navigation"
-            className="absolute top-12 right-12 flex gap-2">
+            className="absolute top-4 right-4 md:top-12 md:right-12 flex gap-2">
             {returnFunction && (
               <button
                 id="button-return"
@@ -71,7 +71,7 @@ export const DisruptiveCardRecipe = ({
             </button>
           </div>
 
-          <div className="ml-12 w-fit h-fit text-xl relative top-[75%]">
+          <div className="ml-4 md:ml-12 w-fit h-fit text-xl relative top-[75%]">
             <div className="bg-base-100 blur-lg shadow-xl h-full w-full absolute"></div>
             <h1 className="relative h-fit max-h-24 w-full overflow-hidden">
               {/* FIXME Spaghetti cuts g (ligature or whatever it's called) down when overflow hidden */}
@@ -79,11 +79,11 @@ export const DisruptiveCardRecipe = ({
             </h1>
           </div>
         </div>
-        <div className="w-full h-full overflow-scroll gap-4 justify-between pb-8 px-12 ">
-          <div className="w-full flex gap-4">
-            <div className="w-2/3 ">
+        <div className="w-full h-full overflow-scroll gap-4 justify-between pb-8 px-4 md:px-12 ">
+          <div className="w-full flex flex-col md:flex-row gap-4">
+            <div className="w-full md:w-2/3">
               <h2 className="h2-underline">
-                <span className="material-icons-outlined iconic-l">
+                <span className="material-icons-outlined iconic-l md:scale-150 text-primary">
                   shopping_cart
                 </span>
                 You will need...
@@ -93,16 +93,14 @@ export const DisruptiveCardRecipe = ({
                   .filter((iy) => iy !== "")
                   .map((iz, index) => (
                     <li>
-                      <div>
-                        <span className="font-medium">{iz}</span> -{" "}
-                        {measures[index]}
-                      </div>
+                      <span className="font-medium">{iz}</span> -{" "}
+                      {measures[index]}
                     </li>
                   ))}
               </div>
               <h2 className="h2-underline">
                 {" "}
-                <span className="material-icons-outlined iconic-l">
+                <span className="material-icons-outlined iconic-l md:scale-150 text-primary">
                   receipt_long
                 </span>
                 About this recipe...
@@ -114,7 +112,7 @@ export const DisruptiveCardRecipe = ({
               </div>
               <h2 className="h2-underline">
                 {" "}
-                <span className="material-icons-outlined iconic-l">
+                <span className="material-icons-outlined iconic-l md:scale-150 text-primary">
                   local_dining
                 </span>
                 How it's made...

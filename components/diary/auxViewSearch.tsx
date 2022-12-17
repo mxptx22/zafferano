@@ -37,7 +37,7 @@ const AuxViewSearch = ({
     <>
       <DisruptiveCard>
         <>
-          <div className="p-12 h-full relative flex flex-col items-stretch">
+          <div className="p-6 md:p-12 h-full relative flex flex-col items-stretch">
             <header>
               <h1>Search</h1>
               <div>
@@ -60,7 +60,7 @@ const AuxViewSearch = ({
                 </button>
               </div>
             </header>
-            <div className="w-full h-fit flex justify-center items-center mt-28 px-8 gap-4 flex-col">
+            <div className="w-full h-fit flex justify-center items-center mt-28 md:px-8 gap-4 flex-col">
               <input
                 value={searchInput}
                 onChange={handleInput}

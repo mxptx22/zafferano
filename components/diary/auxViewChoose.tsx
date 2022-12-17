@@ -128,7 +128,7 @@ const AuxViewChoose = ({
     <>
       <DisruptiveCard>
         <>
-          <div className="flex flex-col h-full w-full justify-between p-12">
+          <div className="flex flex-col h-full w-full justify-between p-6 md:p-12">
             <header className="h-fit">
               <h1>Choose</h1>
               <div id="container-button" className="flex gap-2">
@@ -167,7 +167,7 @@ const AuxViewChoose = ({
 
             {fetchStatus == "Successful" && (
               <>
-                <div className="grid grid-cols-3 items-stretch w-full h-full overflow-scroll gap-4 justify-between -mb-12 pb-8 px-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 items-stretch w-full h-full overflow-scroll gap-4 justify-between -mb-6 md:-mb-12 pb-8 md:px-4">
                   {handleRender}
                 </div>
               </>
