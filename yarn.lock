@@ -744,6 +744,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/frank-ruhl-libre/-/frank-ruhl-libre-4.5.10.tgz#d680d5503f515818ef28e53df295c58c1883b234"
   integrity sha512-6ak88vmDIYqxyFKXNTwA70sh6H3rwFKPYSDPw5DSgpfB8gdMTpCNEmlgiZQ+OiSI/fyf6b06fBi7dtTTRQp0nw==
 
+"@fontsource/murecho@^4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@fontsource/murecho/-/murecho-4.5.11.tgz#49ef76554586c26df3cd6cb411c9a3c0bb2641cc"
+  integrity sha512-oICYPonjpeVCp+gPWn1hhhOIXx+OrIJQYbFSi+G1KEmp10pGKJrr5Bs2pqYY/zPb21RuRHHhWqyPrePCoYF38w==
+
 "@fontsource/yaldevi@^4.5.11":
   version "4.5.11"
   resolved "https://registry.yarnpkg.com/@fontsource/yaldevi/-/yaldevi-4.5.11.tgz#73efaa89be35b1b4cd61c69bad131298e267f8a1"

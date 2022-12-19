@@ -1,7 +1,60 @@
-import React, { useRef } from "react";
-import { LogoTextual as Logo } from "./logo";
+import React, { ReactNode, useRef } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { LogoImage, LogoTextual as Logo } from "./logo";
 
-export function Navbar() {
+import { RiCalendarEventLine } from "react-icons/ri";
+import { IconType } from "react-icons";
+import { DividerFour, DividerThree } from "../backgrounds/dividers";
+
+type INavbarProps = {
+  icon: ReactNode;
+  activity: () => void;
+};
+
+export function NavbarV({ icon, activity }: INavbarProps) {
+  const router = useRouter();
+
+  return (
+    <div className="w-full h-screen backdrop-blur-sm flex flex-col justify-between">
+      <div
+        id="controls"
+        className="h-full w-full border-l border-base-300 flex flex-col items-center pt-6 gap-6">
+        <button
+          id="special-button"
+          className="w-full btn-primary aspect-square flex items-center justify-center text-3xl md:text-4xl"
+          onClick={activity}>
+          {icon}
+        </button>
+
+        <div id="navigation" className="flex flex-col gap-7 pt-2">
+          <a
+            href="/"
+            className={` hover:text-primary-focus ${
+              router.pathname == "/" ? "text-primary" : "text-base-content"
+            }`}>
+            <RiCalendarEventLine className="text-2xl md:text-3xl" />
+          </a>
+          <a
+            href="/"
+            className={` hover:text-primary-focus ${
+              router.pathname == "/2" ? "text-primary" : "text-base-content"
+            }`}>
+            <RiCalendarEventLine className="text-2xl md:text-3xl" />
+          </a>
+        </div>
+      </div>
+      <a
+        href="/"
+        id="logo"
+        className="pb-4 px-2 w-full h-28 bg-primary flex justify-center items-center fill-primary-content">
+        <LogoImage />
+      </a>
+    </div>
+  );
+}
+
+export function NavbarH() {
   const menuRef: any = useRef();
 
   // FIXME Some animation would be welcome

@@ -11,6 +11,7 @@ import { DividerOne, DividerThree } from "../components/backgrounds/dividers";
 import Vine from "../components/backgrounds/vine";
 
 import { MdOutlineAddToPhotos } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -114,7 +115,7 @@ const Home = ({
   };
 
   return (
-    <div className="w-screen h-screen overflow-auto relative">
+    <div>
       <div className="w-[150%] h-screen fixed -z-20 fill-base-content opacity-[0.03]">
         <Vine />
       </div>
@@ -140,19 +141,10 @@ const Home = ({
             setWindowState={setWindowStateTwo}
           />
         )}
-      <Layout>
+      <Layout
+        header="Your Diary"
+        mainButton={{ activity: auxWindowOpen, icon: <IoMdAdd /> }}>
         <>
-          <header>
-            <h1>Your Diary</h1>
-            <button
-              className="btn btn-primary text-lg"
-              onClick={() => auxWindowOpen()}>
-              <span className="md:iconic-l text-2xl">
-                <MdOutlineAddToPhotos />
-              </span>
-              <span className="hidden md:inline">Add Entry</span>
-            </button>
-          </header>
           {successScreen == "Erroneous" && <ErroneousScreen />}
           {successScreen == "Vacuous" && <VacuousScreen />}
           {successScreen == "Successful" &&
@@ -259,15 +251,18 @@ export const SuccessfulScreenGridCard = ({
         }}
         className="card h-44 md:h-64 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
         <figure className="relative h-full">
-          <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-11 md:h-14 rounded-sm aspect-square bg-base-100 flex items-center justify-center">
-            <div className=" text-3xl md:text-4xl font-bold font-serifnumbers">
-              {new Date(dateUTC).getDate()}
+          <div className="absolute shadow-lg shadow-base-200 overflow-hidden top-0 right-2 px-1 rounded-b-sm  bg-base-100 flex items-center justify-center border border-base-300 border-t-0">
+            <div className="font-light text-xl md:text-2xl leading-7 uppercase text-base-content">
+              {new Date(dateUTC).toLocaleDateString(undefined, {
+                // month: "short",
+                day: "numeric",
+              })}
             </div>
           </div>
           <img src={image} alt={`Image of ${name}`} />
         </figure>
-        <div className="card-body p-2 md:p-4 justify-center h-28 overflow-hidden">
-          <div className="card-title text-base md:text-xl font-medium tracking-wide">
+        <div className="card-body px-2 md:px-4 py-3 justify-end h-16 overflow-hidden w-full">
+          <div className="card-title uppercase text-base md:text-xl font-extralight md:tracking-wider overflow-hidden whitespace-nowrap text-ellipsis w-full">
             {name}
           </div>
         </div>
@@ -279,8 +274,8 @@ export const SuccessfulScreenGridCard = ({
 export function YearDecoration(props: { children: any }) {
   return (
     <div className="flex flex-col w-full items-center year">
-      <div className="text-center p-2 -mb-4 rounded-sm">{props.children}</div>
-      <div className="w-48 fill-base-content">
+      <div className="text-center p-2 -mb-5 rounded-sm">{props.children}</div>
+      <div className="w-36 fill-base-content">
         <DividerThree />
       </div>
     </div>

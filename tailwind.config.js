@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Yaldevi", "sans-serif"],
+        sans: ["Murecho", "sans-serif"],
         serif: ["Yrsa", "serif"],
         serifnumbers: ["Frank Ruhl Libre", "serif"],
       },
