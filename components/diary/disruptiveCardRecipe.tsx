@@ -33,7 +33,7 @@ export const DisruptiveCardRecipe = ({
   return (
     <>
       <div className="flex flex-col h-full w-full justify-between overflow-hidden">
-        <div className="h-80 w-full relative mb-14">
+        <div className="h-80 w-full relative mb-8">
           <img
             className="rounded-t-lg h-full w-full absolute object-cover object-center hover:object-top transition-all duration-[4s]"
             src={image}
