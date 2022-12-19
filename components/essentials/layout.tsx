@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { Navbar } from "./navbar";
+
+import { lock, unlock, clearBodyLocks } from "tua-body-scroll-lock";
 
 // HERE Go Types
 
@@ -9,7 +11,7 @@ export function Layout(props: { children: JSX.Element }) {
       <nav>
         <Navbar />
       </nav>
-      <div className="m-5 px-4">{props.children}</div>
+      <div className="m-2 md:m-5 px-4">{props.children}</div>
     </>
   );
 }
@@ -26,9 +28,23 @@ export function DisruptiveLayout(props: { children: JSX.Element }) {
 }
 
 export const DisruptiveCard = (props: { children: JSX.Element }) => {
+  // Scroll Lock Stuff
+
+  const cardRef: any = useRef();
+  const targetElement = cardRef.current;
+
+  useEffect(() => {
+    lock(targetElement);
+    return () => {
+      clearBodyLocks();
+    };
+  }, []);
+
   return (
     <>
-      <div className="animation-slidein w-5/6 h-5/6 bg-base-100 shadow-2xl rounded-xl">
+      <div
+        ref={cardRef}
+        className="animation-slidein w-5/6 h-5/6 bg-base-100 shadow-2xl rounded-xl">
         {props.children}
       </div>
     </>

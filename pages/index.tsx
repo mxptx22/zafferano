@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Layout } from "../components/essentials/layout";
 import AuxWindowAdd from "../components/diary/auxWindowAdd";
 import { GetServerSideProps } from "next";
@@ -6,11 +6,7 @@ import Head from "next/head";
 import { ISendableEvent } from "../models/timelineEvent";
 import { IMonthsWords } from "../models/timelineEvent";
 import PreviewWindow from "../components/diary/previewWindow";
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks,
-} from "body-scroll-lock";
+
 import { DividerOne, DividerThree } from "../components/backgrounds/dividers";
 import Vine from "../components/backgrounds/vine";
 
@@ -117,26 +113,8 @@ const Home = ({
     setWindowStateTwo({ previewWindow: true, previewedEvent: entryID });
   };
 
-  // Scroll Lock Shenanigans
-  const containerRef: any = useRef();
-  const targetElement = containerRef.current;
-
-  // useEffect(() => {
-  //   if (windowStateOne.auxWindow || windowStateTwo.previewWindow) {
-  //     disableBodyScroll(targetElement);
-  //   } else {
-  //     enableBodyScroll(targetElement);
-  //   }
-
-  //   return () => {
-  //     enableBodyScroll(targetElement);
-  //   };
-  // }, [windowStateOne, windowStateTwo]);
-
   return (
-    <div
-      className="w-screen h-screen overflow-auto relative"
-      ref={containerRef}>
+    <div className="w-screen h-screen overflow-auto relative">
       <div className="w-[150%] h-screen fixed -z-20 fill-base-content opacity-[0.03]">
         <Vine />
       </div>

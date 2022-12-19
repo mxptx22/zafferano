@@ -18,7 +18,7 @@ export function Navbar() {
   return (
     <>
       <div className="fixed z-20 w-full flex flex-col">
-        <div className="navbar bg-primary-focus text-primary-content px-6">
+        <div className="navbar bg-primary-focus text-primary-content md:px-6">
           <div className="flex-1">
             <a
               href="/"

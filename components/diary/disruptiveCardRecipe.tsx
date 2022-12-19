@@ -124,7 +124,7 @@ export const DisruptiveCardRecipe = ({
               {instructions.replace(/(\r\n|\n|\r)/gm, "\n")}
             </div>
           </div>
-          <div className="w-1/3 flex justify-start items-stretch flex-col">
+          <div className="w-full md:w-1/3 flex md:justify-start items-stretch flex-col">
             {children}
           </div>
         </div>

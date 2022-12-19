@@ -4,16 +4,16 @@
 
 @layer base {
   body {
-    @apply tracking-wider md:text-lg font-sans;
+    @apply tracking-wider text-sm md:text-lg font-sans;
   }
 
   .iconic-l {
-    @apply md:pr-2;
+    @apply pr-2;
     font-family: "Material Icons Outlined";
   }
 
   .iconic-r {
-    @apply md:pl-2;
+    @apply pl-2;
     font-family: "Material Icons Outlined";
   }
 
@@ -30,7 +30,7 @@
   }
 
   h2 {
-    @apply text-2xl md:text-5xl font-serif font-light pt-2;
+    @apply text-3xl md:text-5xl font-serif font-light pt-2;
     font-variant-ligatures: none;
   }
 
@@ -41,11 +41,11 @@
 
 @layer components {
   .year {
-    @apply uppercase text-5xl font-semibold mt-16 mb-8 font-serif relative;
+    @apply uppercase text-4xl md:text-5xl font-semibold mt-16 mb-8 font-serif relative;
   }
 
   .month {
-    @apply uppercase text-2xl mt-8 mb-2 font-sans;
+    @apply uppercase text-xl md:text-2xl mt-8 mb-2 font-sans;
   }
 
   .number {
