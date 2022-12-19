@@ -1,29 +1,41 @@
-import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
-import { BiAddToQueue } from "react-icons/bi";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { NavbarV } from "./navbar";
 import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
   disableBodyScroll,
 } from "body-scroll-lock";
-import { IconType } from "react-icons/lib";
 import { DividerFive } from "../backgrounds/dividers";
 
+// HERE Go Types
 type IMainButtonProp = {
   icon: ReactNode;
   activity: () => void;
 };
-
-// HERE Go Types
 
 export function Layout(props: {
   mainButton: IMainButtonProp;
   children: JSX.Element;
   header: string;
 }) {
+  // HERE Go Auxiliary Functions
+
+  const useHeight = () => {
+    const [height, setHeight] = useState(0);
+    const handleResize = () => setHeight(window.innerHeight);
+    useEffect(() => {
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, [handleResize]);
+    return height;
+  };
+
   return (
     <>
-      <div className="flex h-screen w-screen overflow-auto">
+      <div
+        className="flex w-screen overflow-auto"
+        // @ts-expect-error
+        style={{ height: { useHeight } }}>
         <div className=" w-full h-screen overflow-scroll">
           <div className="w-full p-2 md:p-8 pt-6 pb-8">
             <header className="justify-start relative -ml-2">
