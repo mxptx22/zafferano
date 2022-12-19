@@ -112,7 +112,7 @@ const PreviewWindow = ({
               <div className="w-full flex flex-col items-center border-base-content border-t md:border-t-0 md:border-l mt-6 md:px-8">
                 <div className="w-full mb-8">
                   {/* FIXME Make it look nicer */}
-                  <div className="text-center w-full uppercase font-thin mb-2 mt-4 md:mt-0">
+                  <div className="text-center w-full uppercase font-light mb-2 mt-4 md:mt-0">
                     Entry Dated
                   </div>
                   <div className="text-center text-4xl md:text-6xl font-serifnumbers ">
