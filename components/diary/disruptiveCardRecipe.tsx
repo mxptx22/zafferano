@@ -1,5 +1,9 @@
 import React, { FunctionComponent } from "react";
-import { DisruptiveCard } from "../essentials/layout";
+import {
+  MdOutlineShoppingCart,
+  MdOutlineReceiptLong,
+  MdLocalDining,
+} from "react-icons/md";
 
 export type IDisruptiveCardRecipeProps = {
   children: JSX.Element;
@@ -79,51 +83,49 @@ export const DisruptiveCardRecipe = ({
             </h1>
           </div>
         </div>
-        <div className="w-full h-full overflow-scroll gap-4 justify-between pb-8 px-4 md:px-12 ">
-          <div className="w-full flex flex-col md:flex-row gap-4">
-            <div className="w-full md:w-2/3">
-              <h2 className="h2-underline">
-                <span className="material-icons-outlined iconic-l md:scale-150 text-primary">
-                  shopping_cart
-                </span>
-                You will need...
-              </h2>
-              <div className="grid grid-cols-2">
-                {ingredients
-                  .filter((iy) => iy !== "")
-                  .map((iz, index) => (
-                    <li>
-                      <span className="font-medium">{iz}</span> -{" "}
-                      {measures[index]}
-                    </li>
-                  ))}
-              </div>
-              <h2 className="h2-underline">
-                {" "}
-                <span className="material-icons-outlined iconic-l md:scale-150 text-primary">
-                  receipt_long
-                </span>
-                About this recipe...
-              </h2>
-              <div>
-                {area && category
-                  ? `This is a ${category} recipe typically associated with ${area} cuisine.`
-                  : "We're not really too sure about this one."}
-              </div>
-              <h2 className="h2-underline">
-                {" "}
-                <span className="material-icons-outlined iconic-l md:scale-150 text-primary">
-                  local_dining
-                </span>
-                How it's made...
-              </h2>
-              <div className="whitespace-pre-wrap leading-relaxed text-justify">
-                {instructions.replace(/(\r\n|\n|\r)/gm, "\n")}
-              </div>
+        <div className="w-full h-full overflow-scroll pb-8 px-4 md:px-12 flex flex-col md:flex-row gap-4">
+          <div className="w-full md:w-2/3 flex flex-col gap-1">
+            <h2 className="h2-underline inline-flex items-center leading-9">
+              <span className="iconic-l text-primary text-3xl">
+                <MdOutlineShoppingCart />
+              </span>
+              You will need...
+            </h2>
+            <div className="grid grid-cols-2">
+              {ingredients
+                .filter((iy) => iy !== "")
+                .map((iz, index) => (
+                  <li>
+                    <span className="font-medium">{iz}</span> -{" "}
+                    {measures[index]}
+                  </li>
+                ))}
             </div>
-            <div className="w-1/3 flex justify-start items-stretch flex-col">
-              {children}
+
+            <h2 className="h2-underline inline-flex items-center leading-9">
+              <span className="iconic-l text-primary text-3xl">
+                <MdOutlineReceiptLong />
+              </span>
+              About this recipe...
+            </h2>
+            <div>
+              {area && category
+                ? `This is a ${category} recipe typically associated with ${area} cuisine.`
+                : "We're not really too sure about this one."}
             </div>
+
+            <h2 className="h2-underline inline-flex items-center leading-9">
+              <span className="iconic-l text-primary text-3xl">
+                <MdLocalDining />
+              </span>
+              How it's made...
+            </h2>
+            <div className="whitespace-pre-wrap leading-relaxed text-justify">
+              {instructions.replace(/(\r\n|\n|\r)/gm, "\n")}
+            </div>
+          </div>
+          <div className="w-1/3 flex justify-start items-stretch flex-col">
+            {children}
           </div>
         </div>
       </div>

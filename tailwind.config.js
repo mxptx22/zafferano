@@ -9,7 +9,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Yaldevi", "sans-serif"],
-        serif: ["Cormorant Infant", "serif"],
+        serif: ["Yrsa", "serif"],
+        serifnumbers: ["Frank Ruhl Libre", "serif"],
       },
     },
   },

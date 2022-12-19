@@ -4,9 +4,10 @@ import { DisruptiveCard, DisruptiveLayout } from "../essentials/layout";
 import { ISendableEvent } from "../../models/timelineEvent";
 import DisruptiveCardRecipe from "./disruptiveCardRecipe";
 import { LoadingBumper, ErrorBumper } from "../essentials/bumpers";
+import { MdDeleteOutline } from "react-icons/md";
 // @ts-ignore
 import useKeypress from "react-use-keypress";
-import { DividerOne } from "../backgrounds/dividers";
+import { DividerTwo } from "../backgrounds/dividers";
 
 // HERE Go Types
 interface Props {
@@ -114,20 +115,20 @@ const PreviewWindow = ({
                   <div className="text-center uppercase font-thin mb-2">
                     Entry Dated
                   </div>
-                  <div className="text-center text-6xl font-serif font-bold">
+                  <div className="text-center text-6xl font-serifnumbers ">
                     {new Date(fetchData.dateUTC).toLocaleDateString()}
                   </div>
                 </div>
                 <div className="mb-8 fill-base-content w-2/3">
-                  <DividerOne />
+                  <DividerTwo />
                   <div className="text-center my-4">
                     <button
                       onClick={() => {
                         handleDelete(fetchData._id!);
                       }}
                       className="btn btn-accent self-center btn-sm">
-                      <span className="material-icons-outlined iconic-l">
-                        delete
+                      <span className="iconic-l text-xl">
+                        <MdDeleteOutline />
                       </span>
                       Delete
                     </button>

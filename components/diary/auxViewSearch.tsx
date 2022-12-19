@@ -4,6 +4,7 @@ import { IWindowStateOne } from "../../pages/index";
 import Champignons from "../backgrounds/champignons";
 // @ts-ignore
 import useKeypress from "react-use-keypress";
+import { MdManageSearch } from "react-icons/md";
 
 type Props = {
   auxWindowClose: () => void;
@@ -71,8 +72,8 @@ const AuxViewSearch = ({
                 onClick={() => {
                   handleProgression();
                 }}>
-                <span className="material-icons-outlined iconic-l">
-                  manage_search
+                <span className="iconic-l text-2xl">
+                  <MdManageSearch />
                 </span>
                 Search
               </button>

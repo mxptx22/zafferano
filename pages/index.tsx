@@ -11,8 +11,10 @@ import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
 } from "body-scroll-lock";
-import { DividerOne } from "../components/backgrounds/dividers";
+import { DividerOne, DividerThree } from "../components/backgrounds/dividers";
 import Vine from "../components/backgrounds/vine";
+
+import { MdOutlineAddToPhotos } from "react-icons/md";
 
 const HOST_DOMAIN: string = process.env.HOST_DOMAIN!;
 
@@ -119,17 +121,17 @@ const Home = ({
   const containerRef: any = useRef();
   const targetElement = containerRef.current;
 
-  useEffect(() => {
-    if (windowStateOne.auxWindow || windowStateTwo.previewWindow) {
-      disableBodyScroll(targetElement);
-    } else {
-      enableBodyScroll(targetElement);
-    }
+  // useEffect(() => {
+  //   if (windowStateOne.auxWindow || windowStateTwo.previewWindow) {
+  //     disableBodyScroll(targetElement);
+  //   } else {
+  //     enableBodyScroll(targetElement);
+  //   }
 
-    return () => {
-      enableBodyScroll(targetElement);
-    };
-  }, [windowStateOne, windowStateTwo]);
+  //   return () => {
+  //     enableBodyScroll(targetElement);
+  //   };
+  // }, [windowStateOne, windowStateTwo]);
 
   return (
     <div
@@ -167,8 +169,8 @@ const Home = ({
             <button
               className="btn btn-primary text-lg"
               onClick={() => auxWindowOpen()}>
-              <span className="material-icons-outlined md:iconic-l">
-                library_add
+              <span className="md:iconic-l text-2xl">
+                <MdOutlineAddToPhotos />
               </span>
               <span className="hidden md:inline">Add Entry</span>
             </button>
@@ -182,7 +184,9 @@ const Home = ({
             distinctYears.map((thisYear: number) => {
               return (
                 <>
-                  <YearDecoration>{thisYear}</YearDecoration>
+                  <YearDecoration>
+                    <div className="number py-1">{thisYear}</div>
+                  </YearDecoration>
                   <SuccessfulScreen
                     previewWindowOpen={previewWindowOpen}
                     thisYear={thisYear}
@@ -278,7 +282,7 @@ export const SuccessfulScreenGridCard = ({
         className="card h-44 md:h-64 bg-base-100 shadow-xl hover:scale-105 transition-all duration-500 cursor-pointer">
         <figure className="relative h-full">
           <div className="absolute shadow-lg shadow-base-100 overflow-hidden bottom-2 right-2 h-11 md:h-14 rounded-sm aspect-square bg-base-100 flex items-center justify-center">
-            <div className=" text-3xl md:text-4xl font-bold font-serif">
+            <div className=" text-3xl md:text-4xl font-bold font-serifnumbers">
               {new Date(dateUTC).getDate()}
             </div>
           </div>
@@ -297,14 +301,9 @@ export const SuccessfulScreenGridCard = ({
 export function YearDecoration(props: { children: any }) {
   return (
     <div className="flex flex-col w-full items-center year">
-      <div className="w-40 fill-base-content">
-        <DividerOne />
-      </div>
-      <div className="text-center  p-2 -mb-2 -mt-2 rounded-sm">
-        {props.children}
-      </div>
-      <div className="w-40 fill-base-content">
-        <DividerOne />
+      <div className="text-center p-2 -mb-4 rounded-sm">{props.children}</div>
+      <div className="w-48 fill-base-content">
+        <DividerThree />
       </div>
     </div>
   );

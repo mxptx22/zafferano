@@ -30,8 +30,7 @@
   }
 
   h2 {
-    @apply text-2xl md:text-5xl font-medium font-serif;
-    font-weight: 700;
+    @apply text-2xl md:text-5xl font-serif font-light pt-2;
     font-variant-ligatures: none;
   }
 
@@ -47,6 +46,10 @@
 
   .month {
     @apply uppercase text-2xl mt-8 mb-2 font-sans;
+  }
+
+  .number {
+    @apply font-serifnumbers;
   }
 
   @keyframes fadein {
@@ -86,7 +89,8 @@
   }
 
   .logo-font {
-    @apply tracking-wider font-serif;
+    @apply tracking-wider font-serifnumbers;
     font-weight: 300;
+    font-family: "Cormorant Infant";
   }
 }
