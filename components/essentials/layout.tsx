@@ -1,7 +1,11 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { Navbar } from "./navbar";
 
-import { lock, unlock, clearBodyLocks } from "tua-body-scroll-lock";
+import {
+  enableBodyScroll,
+  clearAllBodyScrollLocks,
+  disableBodyScroll,
+} from "body-scroll-lock";
 
 // HERE Go Types
 
@@ -34,9 +38,9 @@ export const DisruptiveCard = (props: { children: JSX.Element }) => {
   const targetElement = cardRef.current;
 
   useEffect(() => {
-    lock(targetElement);
+    disableBodyScroll(targetElement);
     return () => {
-      clearBodyLocks();
+      clearAllBodyScrollLocks();
     };
   }, []);
 
