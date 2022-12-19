@@ -21,21 +21,24 @@ export function Layout(props: {
   // HERE Go Auxiliary Functions
 
   const useHeight = () => {
-    const [height, setHeight] = useState(0);
+    const [height, setHeight] = useState<number>();
     const handleResize = () => setHeight(window.innerHeight);
     useEffect(() => {
+      handleResize();
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     }, [handleResize]);
     return height;
   };
 
+  console.log(useHeight());
+
   return (
     <>
       <div
         className="flex w-screen overflow-auto"
-        style={{ height: { useHeight } + "px" }}>
-        <div className=" w-full h-screen overflow-scroll">
+        style={{ height: useHeight() }}>
+        <div className=" w-full h-full overflow-scroll">
           <div className="w-full p-2 md:p-8 pt-6 pb-8">
             <header className="justify-start relative -ml-2">
               <div className="w-20 -mr-16 md:-mr-10 fill-base-content opacity-[0.15] -z-10">
@@ -46,7 +49,7 @@ export function Layout(props: {
             {props.children}
           </div>
         </div>
-        <div className="w-14" style={{ height: { useHeight } + "px" }}>
+        <div className="w-14 h-full">
           <NavbarV
             icon={props.mainButton.icon}
             activity={props.mainButton.activity}
