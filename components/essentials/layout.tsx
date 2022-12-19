@@ -46,7 +46,7 @@ export function Layout(props: {
             {props.children}
           </div>
         </div>
-        <div className="w-14 h-full">
+        <div className="w-14" style={{ height: { useHeight } + "px" }}>
           <NavbarV
             icon={props.mainButton.icon}
             activity={props.mainButton.activity}
