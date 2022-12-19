@@ -96,7 +96,7 @@ export const DisruptiveCardRecipe = ({
                 .filter((iy) => iy !== "")
                 .map((iz, index) => (
                   <li>
-                    <span className="font-medium">{iz}</span> -{" "}
+                    <span className="font-normal">{iz}</span> -{" "}
                     {measures[index]}
                   </li>
                 ))}

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply tracking-wider text-sm md:text-lg font-sans;
+    @apply tracking-wider text-sm md:text-lg font-sans font-light;
   }
 
   .iconic-l {
@@ -21,12 +21,11 @@
     @apply mb-28 w-full;
   }
   header {
-    @apply mb-10 flex justify-between items-center;
+    @apply flex justify-between items-center;
   }
 
   h1 {
-    @apply text-5xl md:text-7xl font-serif;
-    font-weight: 700;
+    @apply text-5xl md:text-6xl font-serif font-normal;
   }
 
   h2 {
@@ -41,11 +40,11 @@
 
 @layer components {
   .year {
-    @apply uppercase text-4xl md:text-5xl font-semibold mt-16 mb-8 font-serif relative;
+    @apply uppercase text-3xl md:text-4xl font-medium md:font-semibold mt-12 font-serifnumbers relative;
   }
 
   .month {
-    @apply uppercase text-xl md:text-2xl mt-8 mb-2 font-sans;
+    @apply uppercase text-base md:text-lg mt-8 font-sans tracking-widest;
   }
 
   .number {

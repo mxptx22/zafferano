@@ -1,21 +1,47 @@
-import React, { FunctionComponent, useEffect, useRef } from "react";
-import { Navbar } from "./navbar";
-
+import React, { FunctionComponent, ReactNode, useEffect, useRef } from "react";
+import { BiAddToQueue } from "react-icons/bi";
+import { NavbarV } from "./navbar";
 import {
   enableBodyScroll,
   clearAllBodyScrollLocks,
   disableBodyScroll,
 } from "body-scroll-lock";
+import { IconType } from "react-icons/lib";
+import { DividerFive } from "../backgrounds/dividers";
+
+type IMainButtonProp = {
+  icon: ReactNode;
+  activity: () => void;
+};
 
 // HERE Go Types
 
-export function Layout(props: { children: JSX.Element }) {
+export function Layout(props: {
+  mainButton: IMainButtonProp;
+  children: JSX.Element;
+  header: string;
+}) {
   return (
     <>
-      <nav>
-        <Navbar />
-      </nav>
-      <div className="m-2 md:m-5 px-4">{props.children}</div>
+      <div className="flex h-screen w-screen overflow-auto">
+        <div className=" w-full h-screen overflow-scroll">
+          <div className="w-full p-2 md:p-8 pt-6 pb-8">
+            <header className="justify-start relative -ml-2">
+              <div className="w-20 -mr-16 md:-mr-10 fill-base-content opacity-[0.15] -z-10">
+                <DividerFive />
+              </div>
+              <h1>{props.header}</h1>
+            </header>
+            {props.children}
+          </div>
+        </div>
+        <div className="w-14 h-screen">
+          <NavbarV
+            icon={props.mainButton.icon}
+            activity={props.mainButton.activity}
+          />
+        </div>
+      </div>
     </>
   );
 }
