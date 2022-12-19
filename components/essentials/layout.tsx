@@ -34,8 +34,7 @@ export function Layout(props: {
     <>
       <div
         className="flex w-screen overflow-auto"
-        // @ts-expect-error
-        style={{ height: { useHeight } }}>
+        style={{ height: { useHeight } + "px" }}>
         <div className=" w-full h-screen overflow-scroll">
           <div className="w-full p-2 md:p-8 pt-6 pb-8">
             <header className="justify-start relative -ml-2">
@@ -47,7 +46,7 @@ export function Layout(props: {
             {props.children}
           </div>
         </div>
-        <div className="w-14 h-screen">
+        <div className="w-14 h-full">
           <NavbarV
             icon={props.mainButton.icon}
             activity={props.mainButton.activity}
