@@ -16,7 +16,7 @@ export function NavbarV({ icon, activity }: INavbarProps) {
   const router = useRouter();
 
   return (
-    <div className="w-full h-screen backdrop-blur-sm flex flex-col justify-between">
+    <div className="w-full h-full backdrop-blur-sm flex flex-col justify-between">
       <div
         id="controls"
         className="h-full w-full border-l border-base-300 flex flex-col items-center pt-6 gap-6">

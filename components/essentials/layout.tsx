@@ -31,8 +31,6 @@ export function Layout(props: {
     return height;
   };
 
-  console.log(useHeight());
-
   return (
     <>
       <div
