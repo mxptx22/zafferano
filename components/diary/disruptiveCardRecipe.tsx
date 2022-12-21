@@ -83,7 +83,7 @@ export const DisruptiveCardRecipe = ({
             </h1>
           </div>
         </div>
-        <div className="w-full h-full overflow-scroll pb-8 px-4 md:px-12 flex flex-col md:flex-row gap-4">
+        <div className="w-full h-full overflow-auto pb-8 px-4 md:px-12 flex flex-col md:flex-row gap-4">
           <div className="w-full md:w-2/3 flex flex-col gap-1">
             <h2 className="h2-underline inline-flex items-center leading-9">
               <span className="iconic-l text-primary text-3xl">
@@ -120,7 +120,7 @@ export const DisruptiveCardRecipe = ({
               </span>
               How it's made...
             </h2>
-            <div className="whitespace-pre-wrap leading-relaxed text-justify">
+            <div className="whitespace-pre-wrap leading-relaxed text-justify pb-12">
               {instructions.replace(/(\r\n|\n|\r)/gm, "\n")}
             </div>
           </div>
