@@ -35,7 +35,7 @@ export function Layout(props: {
     <>
       <div
         className="flex w-screen overflow-auto"
-        style={{ height: useHeight() }}>
+        style={{ height: useHeight() || "100vh" }}>
         <div className=" w-full h-full overflow-y-scroll">
           <div className="w-full p-2 md:p-8 pt-6 pb-8">
             <header className="justify-start relative -ml-2">
