@@ -1,4 +1,10 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { NavbarV } from "./navbar";
 import {
   enableBodyScroll,
@@ -23,7 +29,7 @@ export function Layout(props: {
   const useHeight = () => {
     const [height, setHeight] = useState<number>();
     const handleResize = () => setHeight(window.innerHeight);
-    useEffect(() => {
+    useLayoutEffect(() => {
       handleResize();
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
