@@ -1,10 +1,4 @@
-import React, {
-  ReactNode,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { NavbarV } from "./navbar";
 import {
   enableBodyScroll,
@@ -29,7 +23,7 @@ export function Layout(props: {
   const useHeight = () => {
     const [height, setHeight] = useState<number>();
     const handleResize = () => setHeight(window.innerHeight);
-    useLayoutEffect(() => {
+    useEffect(() => {
       handleResize();
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
@@ -41,7 +35,7 @@ export function Layout(props: {
     <>
       <div
         className="flex w-screen overflow-auto"
-        style={{ height: useHeight() }}>
+        style={{ height: useHeight() || "100vh" }}>
         <div className=" w-full h-full overflow-y-scroll">
           <div className="w-full p-2 md:p-8 pt-6 pb-8">
             <header className="justify-start relative -ml-2">
